@@ -197,6 +197,14 @@ GEM
     rswag-ui (2.5.1)
       actionpack (>= 3.1, < 7.1)
       railties (>= 3.1, < 7.1)
+    sentry-rails (5.1.0)
+      railties (>= 5.0)
+      sentry-ruby-core (~> 5.1.0)
+    sentry-ruby (5.1.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      sentry-ruby-core (= 5.1.0)
+    sentry-ruby-core (5.1.0)
+      concurrent-ruby
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
     strscan (3.0.1)
@@ -228,6 +236,8 @@ DEPENDENCIES
   rswag-api (~> 2.4)
   rswag-specs (~> 2.4)
   rswag-ui (~> 2.4)
+  sentry-rails
+  sentry-ruby
   shoulda-matchers (~> 5.1.0)
   tzinfo-data
 

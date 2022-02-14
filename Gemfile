@@ -61,3 +61,7 @@ gem 'rails-healthcheck'
 # RSwag Api Docs
 gem 'rswag-api', '~> 2.4'
 gem 'rswag-ui', '~> 2.4'
+
+# Sentry Error monitor
+gem "sentry-ruby"
+gem "sentry-rails"
