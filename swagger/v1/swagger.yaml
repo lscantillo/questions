@@ -1,0 +1,19 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/healthcheck":
+    get:
+      summary: View status
+      tags:
+      - HealthCheck
+      responses:
+        '200':
+          description: Success
+        '503':
+          description: Service Unavailable
+servers:
+- url: https://wizeline-questions-qa.herokuapp.com
+- url: http://localhost:3000

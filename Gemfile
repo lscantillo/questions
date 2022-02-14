@@ -46,6 +46,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'faker', '~> 2.19.0'
   gem 'rspec-rails', '~> 4.0.2'
+  gem 'rswag-specs', '~> 2.4'
   gem 'shoulda-matchers', '~> 5.1.0'
 end
 
@@ -56,3 +57,7 @@ end
 
 # Rails HealthCheck
 gem 'rails-healthcheck'
+
+# RSwag Api Docs
+gem 'rswag-api', '~> 2.4'
+gem 'rswag-ui', '~> 2.4'
