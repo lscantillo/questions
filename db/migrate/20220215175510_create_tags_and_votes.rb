@@ -7,8 +7,6 @@ class CreateTagsAndVotes < ActiveRecord::Migration[7.0]
     end
 
     create_table :votes do |t|
-      #t.integer :question_id
-      #t.integer :employee_id
       t.boolean :is_up_vote, default: nil
       
       t.timestamps
