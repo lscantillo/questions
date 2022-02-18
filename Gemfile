@@ -14,6 +14,9 @@ gem 'pg', '~> 1.1'
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
 
+# gem issue: https://stackoverflow.com/questions/30834421/error-when-trying-to-install-app-with-mysql2-gem
+gem 'mysql2', '~> 0.4.0'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

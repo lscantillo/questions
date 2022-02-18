@@ -27,5 +27,3 @@ mapping_rules = {
     name: 'full_name'
   }
  }
-
-
