@@ -2,11 +2,7 @@ module LegacyDataProvider
   
   class QueryDataToJson
     def initialize
-      if ENV["RAILS_ENV"] == "development"
-        @client = Mysql2::Client.new(host: "34.123.22.213", database: "wizeq_develop", username: "wizeqdev", password: "c68Q57eftb7k")
-      else
-        raise StandardError.new, 'Not implemented yet for environments different from development'
-      end
+      @client = Mysql2::Client.new(host: "34.123.22.213", database: "wizeq_develop", username: "wizeqdev", password: "c68Q57eftb7k")
     end
     
     def call (field_names, table_name)
