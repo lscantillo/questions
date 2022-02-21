@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_185218) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.string "text_content", limit: 600
+    t.string "text_content", limit: 3100
     t.string "session_hash", limit: 255
     t.boolean "is_answer", default: false
     t.datetime "created_at", precision: 6, null: false

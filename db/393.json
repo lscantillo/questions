@@ -1,0 +1,18 @@
+[
+ {
+  "question_id":1,
+  "question":"Are the internal projects being considered for the ladders evaluation? With the internal projects I mean the ones in this list https://goo.gl/5KgMWj , and others such Academies, events and so on.",
+  "is_anonymous":1,
+  "createdAt":"2017-06-30 10:07:19",
+  "updatedAt":"2018-09-04 20:26:52",
+  "location":"ALL",
+  "last_email_notification_date":"",
+  "assigned_department":0,
+  "created_by_employee_id":0,
+  "assigned_to_employee_id":0
+  },
+ {"question_id":2, "question":"One of the metrics in the ladders' evaluation is Significance (Contributes to assigned projects). What if your expertise area just has one project? Is the evaluation considering Github or Jira for performance metrics?", "is_anonymous":1, "createdAt":"2017-06-30 10:26:32", "updatedAt":"2017-07-26 20:33:08", "location":"ALL", "last_email_notification_date":"", "assigned_department":0, "created_by_employee_id":0, "assigned_to_employee_id":0},
+ {"question_id":3, "question":"Where did the vote buttons go?", "is_anonymous":1, "createdAt":"2017-06-30 20:07:18", "updatedAt":"2017-06-30 20:29:18", "location":"ALL", "last_email_notification_date":"", "assigned_department":0, "created_by_employee_id":0, "assigned_to_employee_id":0},
+ {"question_id":4, "question":"Why aren't you using gzip compression in WizeQ frontend?", "is_anonymous":1, "createdAt":"2017-06-30 20:46:22", "updatedAt":"2017-07-06 04:20:18", "location":"ALL", "last_email_notification_date":"", "assigned_department":0, "created_by_employee_id":0, "assigned_to_employee_id":0},
+ {"question_id":5, "question":"Not a question but just want to say that you built something very awesome. Congrats team!", "is_anonymous":1, "createdAt":"2017-06-30 21:03:15", "updatedAt":"2017-07-06 04:35:05", "location":"ALL", "last_email_notification_date":"", "assigned_department":0, "created_by_employee_id":0, "assigned_to_employee_id":0}
+]

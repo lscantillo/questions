@@ -1,5 +1,5 @@
 class Employee < ApplicationRecord
-  belongs_to :department
+  belongs_to :department, optional: true
 
   has_many :posted_questions, class_name: 'Question'
   has_many :assigned_questions, class_name: 'Question', foreign_key: "assigned_to_employee_id"
