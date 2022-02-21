@@ -2,7 +2,7 @@ module LegacyDataProvider
   
   class QueryDataToJson
     def initialize
-      @client = Mysql2::Client.new(host: "34.123.22.213", database: "wizeq_develop", username: "wizeqdev", password: "c68Q57eftb7k")
+      @client = Mysql2::Client.new(host: ENV['WIZEQ_HOST'], database: ENV['WIZEQ_DATABASE'], username: ENV['WIZEQ_USERNAME'], password: ENV['WIZEQ_PASSWORD'])
     end
     
     def call (field_names, table_name)
