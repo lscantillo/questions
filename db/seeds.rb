@@ -53,7 +53,6 @@ questions.each do |question|
   q = Question.new
   q.text_content = question['question']
   q.id = question['question_id']
-  q.user_hash = "" # empty for now (?)
   q.is_anonymous = question['is_anonymous']
   q.location = question['location']
   asked_by = question['created_by_employee_id'].to_i
@@ -68,7 +67,10 @@ questions.each do |question|
   if department != 0
     q.department_id = department
   end
-  q.last_email_notification_date = question['last_email_notification_date'].to_datetime
+  last_email = question['last_email_notification_date']
+  if last_email != nil
+    q.last_email_notification_date = last_email.to_datetime
+  end
   q.created_at = question['createdAt'].to_datetime
   q.updated_at = question['updatedAt'].to_datetime
   q.save
@@ -99,10 +101,11 @@ comments.each do |comment|
   c.question_id = comment['questionId']
   c.created_at = comment['createdAt'].to_datetime
   c.updated_at = comment['createdAt'].to_datetime
-  if comment['userEmail'] == ""
+  email = comment['userEmail']
+  if  email == "" || email == nil
     c.employee_id = nil
   else
-    temp_employee = Employee.find_by_email(comment['userEmail'])
+    temp_employee = Employee.find_by_email(email)
     c.employee_id = temp_employee.id
   end
   c.save

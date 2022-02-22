@@ -1,17 +1,17 @@
 module LegacyDataProvider
-  
+
   class QueryDataToJson
     def initialize
       @client = Mysql2::Client.new(host: ENV['WIZEQ_HOST'], database: ENV['WIZEQ_DATABASE'], username: ENV['WIZEQ_USERNAME'], password: ENV['WIZEQ_PASSWORD'])
     end
-    
+
     def call (field_names, table_name)
       params = []
       field_names.each do |field|
         params << "'#{field}'"
         params << field
       end
-      
+
       response = @client.query("SELECT JSON_OBJECT (#{params.join(',')}) FROM #{table_name}")
       response.map{|x| JSON.parse(x.values.first)}
     end
@@ -50,7 +50,7 @@ module LegacyDataProvider
     end
 
     def self.get_tags
-      conn = QueryDataToJson.new 
+      conn = QueryDataToJson.new
       conn.call(@@tags_params, 'Tags')
     end
 
