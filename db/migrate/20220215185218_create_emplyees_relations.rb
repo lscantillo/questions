@@ -3,4 +3,3 @@ class CreateEmplyeesRelations < ActiveRecord::Migration[7.0]
     add_reference :employees, :department, foreign_key: true
   end
 end
-#typo

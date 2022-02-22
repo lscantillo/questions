@@ -89,7 +89,7 @@ votes.each do |vote|
   v.created_at = Time.now
   v.updated_at = Time.now
   v.save
-  # needs email fetch from  outh2 token
+  # Most Likely not possible to recover
   # v.employee_id
 end
 
@@ -98,7 +98,7 @@ file = File.read(Rails.root.join('DatabaseJson','./Comments.json'))
 comments = JSON.parse(file)
 comments.each do |comment|
   c = Comment.new
-  # theres a 3001 char comment !!!!
+  # theres a 3001 char answer !!!!
   ## c.id = comment['comment_id']
   c.text_content = comment['comment']
   c.session_hash = comment['sessionHash']
@@ -140,16 +140,3 @@ qTags.each do |qTag|
   qt.question_id = qTag['question_id']
   qt.save
 end
-
-### Run from the heroku console console
-# ActiveRecord::Base.connection.reset_pk_sequence!(questions)
-# ActiveRecord::Base.connection.reset_pk_sequence!('users')
-# ActiveRecord::Base.connection.reset_pk_sequence!('tags')
-
-# need to check if url call uses id (IMPORTANT!)
-# ActiveRecord::Base.connection.reset_pk_sequence!('comments')
-
-# # ActiveRecord::Base.transaction do
-# #   david.withdrawal(100)
-# #   mary.deposit(100)
-# # end
