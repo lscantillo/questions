@@ -3,8 +3,7 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
 #Departments info
-file = File.read(Rails.root.join('DatabaseJson','./Departments.json'))
-departments = JSON.parse(file)
+departments = LegacyDataProvider::DataRetriever.get_departments
 departments.each do |department|
   d = Department.new
   d.name = department['name']
@@ -14,8 +13,7 @@ departments.each do |department|
 end
 
 # Current Users data
-file = File.read(Rails.root.join('DatabaseJson','./Users.json'))
-users = JSON.parse(file)
+users = LegacyDataProvider::DataRetriever.get_users
 users.each do |user|
   u = Employee.new
   u.id = user['employee_id']
@@ -30,8 +28,7 @@ users.each do |user|
 end
 
 # Update Department for admins
-file = File.read(Rails.root.join('DatabaseJson','./EmployeesDepartments.json'))
-admins = JSON.parse(file)
+admins = LegacyDataProvider::DataRetriever.get_employees_departments
 admins.each do |admin|
   a = Employee.find_by_email(admin['email'])
   d = Department.find(admin['department_id'])
@@ -40,8 +37,7 @@ admins.each do |admin|
 end
 
 # Existing Tags
-file = File.read(Rails.root.join('DatabaseJson','./Tags.json'))
-tags = JSON.parse(file)
+tags = LegacyDataProvider::DataRetriever.get_tags
 tags.each do |tag|
   t = Tag.new
   t.id = tag['tag_id']
@@ -52,8 +48,7 @@ tags.each do |tag|
 end
 
 # Questions!
-file = File.read(Rails.root.join('DatabaseJson','./Questions.json'))
-questions = JSON.parse(file)
+questions = LegacyDataProvider::DataRetriever.get_questions
 questions.each do |question|
   q = Question.new
   q.text_content = question['question']
@@ -80,8 +75,7 @@ questions.each do |question|
 end
 
 # Votes
-file = File.read(Rails.root.join('DatabaseJson','./Votes.json'))
-votes = JSON.parse(file)
+votes = LegacyDataProvider::DataRetriever.get_votes
 votes.each do |vote|
   v = Vote.new
   v.question_id = vote['question_id']
@@ -94,8 +88,7 @@ votes.each do |vote|
 end
 
 # Comments
-file = File.read(Rails.root.join('DatabaseJson','./Comments.json'))
-comments = JSON.parse(file)
+comments = LegacyDataProvider::DataRetriever.get_comments
 comments.each do |comment|
   c = Comment.new
   # theres a 3001 char answer !!!!
@@ -116,8 +109,7 @@ comments.each do |comment|
 end
 
 # Answers
-file = File.read(Rails.root.join('DatabaseJson','./Answers.json'))
-answers = JSON.parse(file)
+answers = LegacyDataProvider::DataRetriever.get_answers
 answers.each do |answer|
   a = Comment.new
   a.text_content = answer['answer_text']
@@ -132,8 +124,7 @@ answers.each do |answer|
 end
 
 # Question Tags
-file = File.read(Rails.root.join('DatabaseJson','./QuestionsTags.json'))
-qTags = JSON.parse(file)
+qTags = LegacyDataProvider::DataRetriever.get_question_tags
 qTags.each do |qTag|
   qt = QuestionsTag.new
   qt.tag_id = qTag['tag_id']
