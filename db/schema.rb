@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_185218) do
+ActiveRecord::Schema.define(version: 2022_02_21_235004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.string "text_content", limit: 600
+    t.string "text_content", limit: 3100
     t.string "session_hash", limit: 255
     t.boolean "is_answer", default: false
     t.datetime "created_at", precision: 6, null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_185218) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string "text_content", limit: 600
+    t.string "header", limit: 500
     t.string "user_hash", limit: 255
     t.boolean "is_anonymous", default: true
     t.string "location", limit: 255
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_185218) do
     t.bigint "employee_id"
     t.bigint "assigned_to_employee_id"
     t.bigint "department_id"
+    t.string "text_content"
     t.index ["assigned_to_employee_id"], name: "index_questions_on_assigned_to_employee_id"
     t.index ["department_id"], name: "index_questions_on_department_id"
     t.index ["employee_id"], name: "index_questions_on_employee_id"
