@@ -1,6 +1,6 @@
 module JsonWebToken
   class Encoder
-    SECRET_KEY = ENV['SECRET_KEY']
+    SECRET_KEY = ENV['SECRET_KEY_BASE']
 
     def self.encode(playload, exp = 24.hours.from_now)
       playload[:exp] = exp.to_i
