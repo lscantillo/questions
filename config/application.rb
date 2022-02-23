@@ -25,5 +25,8 @@ module WizelineQuestionsBe
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    
+    # Needed for initial seeding of old data
+    #config.active_record.record_timestamps = false
   end
 end
