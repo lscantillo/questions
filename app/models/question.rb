@@ -8,4 +8,5 @@ class Question < ApplicationRecord
   has_many :tags, through: :questions_tags
 
   has_many :votes
+  belongs_to :location
 end

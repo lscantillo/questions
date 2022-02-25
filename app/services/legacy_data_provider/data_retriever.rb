@@ -28,6 +28,7 @@ module LegacyDataProvider
     @@employees_departments_params = %w[id email department_id employee_id]
     @@employees_params = %w[email name is_admin job_title]
     @@departments_params = %w[department_id name is_active]
+    @@locations_params = %w[name code]
 
     def self.get_questions
       conn = QueryDataToJson.new
@@ -77,6 +78,11 @@ module LegacyDataProvider
     def self.get_departments
       conn = QueryDataToJson.new
       conn.call(@@departments_params, 'Departments')
+    end
+
+    def self.get_locations
+      conn = QueryDataToJson.new
+      conn.call(@@locations_params, 'Locations')
     end
   end
 end
