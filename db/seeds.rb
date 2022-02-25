@@ -2,7 +2,7 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
-#Departments info
+# Departments info
 departments = LegacyDataProvider::DataRetriever.get_departments
 departments.each do |department|
   d = Department.new
@@ -10,6 +10,15 @@ departments.each do |department|
   d.is_active = department['is_active']
   d.save
   # d.abbreviation = ???
+end
+
+# Current Locations
+locations = LegacyDataProvider::DataRetriever.get_locations
+locations.each do |location|
+  l = Location.new
+  l.name = location['name']
+  l.code = location['code']
+  l.save
 end
 
 # Current Users data
@@ -54,7 +63,8 @@ questions.each do |question|
   q.text_content = question['question']
   q.id = question['question_id']
   q.is_anonymous = question['is_anonymous']
-  q.location = question['location']
+  temp_location = Location.find_by_code(question['location'])
+  q.location_id = temp_location.id
   asked_by = question['created_by_employee_id'].to_i
   if asked_by != 0
     q.employee_id = asked_by
