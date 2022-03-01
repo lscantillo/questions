@@ -11,5 +11,12 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     resources :questions
+    resources :departments
+    resources :employees
+    get '/admins', to: 'employees#admins'
+    resources :tags
+    resources :locations
+    get '/tones/:text_content', to: 'tones#tone'
+    resources :comments
   end
 end

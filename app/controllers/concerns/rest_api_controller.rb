@@ -2,7 +2,7 @@ module RestApiController
   extend ActiveSupport::Concern
 
   included do
-    before_action :resource, except: %i[index create]
+    before_action :resource, except: %i[index create admins]
     before_action :require_resource_params, only: %i[create update]
 
     def index
