@@ -23,7 +23,7 @@ class Question < ApplicationRecord
     Question.find(question_ids).split(',')
   end
 
-  def self.insterested
+  def self.insteresting
     question_ids = Comment.select(:question_id).group(:question_id).order(Arel.sql('COUNT(question_id) DESC')).pluck(:question_id)
     Question.find(question_ids).split(',')
   end
