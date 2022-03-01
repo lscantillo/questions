@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     resources :questions
+    get 'similar_questions' => 'validations#similar_questions'
   end
 end
