@@ -71,3 +71,9 @@ gem 'rswag-ui', '~> 2.4'
 # Sentry Error monitor
 gem 'sentry-rails'
 gem 'sentry-ruby'
+
+# Use Rack cors
+gem 'rack-cors'
+
+# Pg Search
+gem 'pg_search'
