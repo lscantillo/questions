@@ -19,14 +19,12 @@ class Question < ApplicationRecord
                     tsearch: { prefix: true }
                   }
   def self.hottest
-    question_ids = Vote.select(:question_id).group(:question_id).order('COUNT(question
-_id) DESC').pluck(:question_id)
+    question_ids = Vote.select(:question_id).group(:question_id).order(Arel.sql('COUNT(question_id) DESC')).pluck(:question_id)
     Question.find(question_ids).split(',')
   end
 
   def self.insterested
-    question_ids = Comment.select(:question_id).group(:question_id).order('COUNT(question
-_id) DESC').pluck(:question_id)
+    question_ids = Comment.select(:question_id).group(:question_id).order(Arel.sql('COUNT(question_id) DESC')).pluck(:question_id)
     Question.find(question_ids).split(',')
   end
 end
