@@ -8,4 +8,19 @@ class Api::QuestionsController < ApplicationController
     @pagy, @questions = pagy(Question.all)
     render json: { data: @questions, pagy: pagy_metadata(@pagy) }
   end
+
+  def hottest
+    @questions = Question.hottest
+    @pagy, @records = pagy(@questions)
+    render json: { data: @records,
+                   pagy: pagy_metadata(@pagy) }
+  end
+
+  def interesting
+    @questions = Question.interesting
+    @pagy, @records = pagy(@questions)
+    render json: { data: @records,
+                   pagy: pagy_metadata(@pagy) }
+  end
+
 end
