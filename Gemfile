@@ -74,3 +74,6 @@ gem 'sentry-ruby'
 
 # Use Rack cors
 gem 'rack-cors'
+
+# Pg Search
+gem 'pg_search'
