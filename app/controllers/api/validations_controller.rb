@@ -11,14 +11,14 @@ class Api::ValidationsController < ApplicationController
 
   def hottest
     @questions = Question.hottest
-    @pagy, @records = pagy(@questions[0])
+    @pagy, @records = pagy_array(@questions[0])
     render json: { data: @records,
                    pagy: pagy_metadata(@pagy) }
   end
 
   def interesting
     @questions = Question.insteresting
-    @pagy, @records = pagy(@questions[0])
+    @pagy, @records = pagy_array(@questions[0])
     render json: { data: @records,
                    pagy: pagy_metadata(@pagy) }
   end
