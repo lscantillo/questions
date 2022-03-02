@@ -9,7 +9,7 @@ class Api::TonesController < ApplicationController
     response.sentences.each do |sentence|
       if sentence.sentiment.score <= -0.8
         reject = true
-        render json: { message: "#{sentence.text.content}" , status: 	:conflict, needs_review: true}
+        render json: { message: "#{sentence.text.content}" , status: :conflict, needs_review: true}
       end
     end
     if reject == false
