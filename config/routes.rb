@@ -18,5 +18,8 @@ Rails.application.routes.draw do
     resources :locations
     get '/tones', to: 'tones#tone'
     resources :comments
+    get 'similar_questions' => 'validations#similar_questions'
+    get 'hottest' => 'validations#hottest'
+    get 'insteresting' => 'validations#interesting'
   end
 end

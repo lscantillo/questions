@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
 
     begin
       @decoded = JsonWebToken::Encoder.decode(header)
-      raise JWT::ExpiredError, header if (Time.now <=> Time.at(@decoded['exp'])) == -1
+      raise JWT::ExpiredError, header if (Time.now <=> Time.at(@decoded['exp'])) == 1
 
       @current_user = Employee.find_by_email(@decoded['email'])
     rescue ActiveRecord::RecordNotFound => e
