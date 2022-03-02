@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get '/admins', to: 'employees#admins'
     resources :tags
     resources :locations
-    get '/tones/:text_content', to: 'tones#tone'
+    get '/tones', to: 'tones#tone'
     resources :comments
   end
 end
