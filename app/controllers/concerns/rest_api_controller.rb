@@ -57,7 +57,7 @@ module RestApiController
     end
 
     def require_resource_params
-      @params = params.require(resource_class.to_s.downcase.pluralize.to_sym).permit(@permited_params)
+      @params = params.require(resource_class.to_s.downcase.to_sym).permit(permited_params)
     end
   end
 end

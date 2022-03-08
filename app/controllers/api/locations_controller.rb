@@ -1,5 +1,7 @@
 class Api::LocationsController < ApplicationController
   include RestApiController
 
-  @permited_params = %i[name code]
+  def permited_params
+    %i[name code]
+  end
 end
