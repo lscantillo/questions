@@ -1,13 +1,18 @@
 module RestApiController
   extend ActiveSupport::Concern
-
+  include Pagy::Backend
   included do
     before_action :resource, except: %i[index create admins]
     before_action :require_resource_params, only: %i[create update]
 
     def index
       @resources = (respond_to? :index_callback) ? index_callback : resource_class.all
-      render json: @resources, status: :ok
+      if params[:items].nil?
+        render json: @resources, status: :ok
+      else
+        @pagy, @resources = pagy(@resources)
+        render json: { data: @resources, pagy: pagy_metadata(@pagy) } ,status: :ok
+      end
     end
 
     def show

@@ -8,7 +8,6 @@ class Api::QuestionsController < ApplicationController
   end
 
   def index_callback
-    @pagy, @questions = pagy(Question.all.order('created_at DESC'))
-    { data: @questions, pagy: pagy_metadata(@pagy) }
+    @questions = Question.all.order('created_at DESC')
   end
 end
