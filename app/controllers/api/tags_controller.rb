@@ -1,5 +1,7 @@
 class Api::TagsController < ApplicationController
   include RestApiController
 
-  @permited_params = %i[name]
+  def permited_params
+    %i[name]
+  end
 end

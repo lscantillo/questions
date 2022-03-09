@@ -6,7 +6,7 @@ module RestApiController
     before_action :require_resource_params, only: %i[create update]
 
     def index
-      @resources = respond_to? :index_callback ? index_callback : resource_class.all
+      @resources = (respond_to? :index_callback) ? index_callback : resource_class.all
       render json: @resources, status: :ok
     end
 
@@ -57,7 +57,7 @@ module RestApiController
     end
 
     def require_resource_params
-      @params = params.require(resource_class.to_s.downcase.to_sym).permit(@permited_params)
+      @params = params.require(resource_class.to_s.downcase.to_sym).permit(permited_params)
     end
   end
 end

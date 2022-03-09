@@ -1,5 +1,6 @@
 class Api::TonesController < ApplicationController
-  require "google/cloud/language/v1" # needed
+  require "google/cloud/language/v1"
+
   def tone
     client = ::Google::Cloud::Language::V1::LanguageService::Client.new
     text_content = params[:text_content]
