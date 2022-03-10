@@ -9,6 +9,6 @@ class Api::QuestionsController < ApplicationController
 
   def index_callback
     @pagy, @questions = pagy(Question.all.order('created_at DESC'))
-    { data: @questions, pagy: pagy_metadata(@pagy) }
+    { data: serialize(@questions, LigthQuestionSerializer), pagy: pagy_metadata(@pagy) }
   end
 end
