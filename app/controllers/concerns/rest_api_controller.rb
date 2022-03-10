@@ -10,8 +10,10 @@ module RestApiController
       if params[:items].nil?
         render json: @resources, status: :ok
       else
-        @pagy, @resources = pagy(@resources)
-        render json: { data: @resources, pagy: pagy_metadata(@pagy) } ,status: :ok
+        @pagy, @resources = pagy(@resources, items: params[:items])
+        serializer_name = "#{resource_class.name}Serializer".constantize
+        data = ActiveModel::Serializer::CollectionSerializer.new(@resources, serializer: serializer_name).as_json
+        render json:{data: data ,pagy: pagy_metadata(@pagy)}
       end
     end
 
