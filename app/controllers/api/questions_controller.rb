@@ -10,4 +10,8 @@ class Api::QuestionsController < ApplicationController
   def index_callback
     @questions = Question.all.order('created_at DESC')
   end
+
+  def show_callback
+    @resource = DetailedQuestionSerializer.new(@resource)
+  end
 end
