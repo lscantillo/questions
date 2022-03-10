@@ -17,6 +17,7 @@ class Question < ApplicationRecord
                   using: {
                     tsearch: { prefix: true }
                   }
+
   def self.hottest
     question_ids = Vote.select(:question_id).group(:question_id).order(Arel.sql('COUNT(question_id) DESC')).pluck(:question_id)
     Question.find(question_ids).split(',')

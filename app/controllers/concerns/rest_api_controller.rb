@@ -53,6 +53,14 @@ module RestApiController
     end
 
     private
+
+    def serialize(collection, serializer)
+      ActiveModelSerializers::SerializableResource.new(
+        collection,
+        each_serializer: serializer,
+      ).as_json
+    end
+
     def resource_class
       controller_path.classify.delete_prefix('Api::').delete_suffix('Controller').constantize
     end
