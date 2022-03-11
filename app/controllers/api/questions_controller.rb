@@ -8,9 +8,9 @@ class Api::QuestionsController < ApplicationController
   end
 
   def index_callback
-    @instance_options['layout'] = @params['layout'] if @params&.key? :layout
+    @serializer = @params&.any?(%w[layout minimal]) ? MinimalSerializer : QuestionSerializer
     @pagy, @questions = pagy(Question.all.order('created_at DESC'))
-    { data: serialize(@questions, QuestionSerializer), pagy: pagy_metadata(@pagy) }
+    { data: serialize(@questions, @serializer), pagy: pagy_metadata(@pagy) }
   end
 
   def show_callback
