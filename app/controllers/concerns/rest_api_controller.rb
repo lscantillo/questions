@@ -12,8 +12,9 @@ module RestApiController
       else
         @pagy, @resources = pagy(@resources, items: params[:items])
         serializer_name = "#{resource_class.name}Serializer".constantize
-        data = ActiveModel::Serializer::CollectionSerializer.new(@resources, serializer: serializer_name).as_json
-        render json:{data: data ,pagy: pagy_metadata(@pagy)}
+        data = serialize(@resources, serializer_name)
+        data[:pagy] = pagy_metadata(@pagy)
+        render json: data
       end
     end
 
