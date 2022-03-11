@@ -60,7 +60,7 @@ end
 questions = LegacyDataProvider::DataRetriever.get_questions
 questions.each do |question|
   q = Question.new
-  q.text_content = question['question']
+  q.header = question['question']
   q.id = question['question_id']
   q.is_anonymous = question['is_anonymous']
   temp_location = Location.find_by_code(question['location'])
