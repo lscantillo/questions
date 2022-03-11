@@ -50,7 +50,7 @@ module RestApiController
     def serialize(collection, serializer)
       ActiveModelSerializers::SerializableResource.new(
         collection,
-        each_serializer: serializer,
+        each_serializer: serializer
       ).as_json
     end
 

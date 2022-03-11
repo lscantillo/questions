@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_25_195122) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_02_25_195122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,8 +18,8 @@ ActiveRecord::Schema.define(version: 2022_02_25_195122) do
     t.string "text_content", limit: 3100
     t.string "session_hash", limit: 255
     t.boolean "is_answer", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "employee_id"
     t.bigint "question_id"
     t.index ["employee_id"], name: "index_comments_on_employee_id"
@@ -39,8 +38,8 @@ ActiveRecord::Schema.define(version: 2022_02_25_195122) do
     t.boolean "is_admin", default: false
     t.string "job_title", limit: 255
     t.string "profile_picture_url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "department_id"
     t.index ["department_id"], name: "index_employees_on_department_id"
   end
@@ -54,9 +53,9 @@ ActiveRecord::Schema.define(version: 2022_02_25_195122) do
     t.string "header", limit: 500
     t.string "user_hash", limit: 255
     t.boolean "is_anonymous", default: true
-    t.datetime "last_email_notification_date", precision: 6
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "last_email_notification_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "employee_id"
     t.bigint "assigned_to_employee_id"
     t.bigint "department_id"
@@ -75,14 +74,14 @@ ActiveRecord::Schema.define(version: 2022_02_25_195122) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name", limit: 30
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "votes", force: :cascade do |t|
     t.boolean "is_up_vote"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "question_id"
     t.bigint "employee_id"
     t.index ["employee_id"], name: "index_votes_on_employee_id"

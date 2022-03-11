@@ -8,7 +8,17 @@ class Api::QuestionsController < ApplicationController
   end
 
   def index_callback
+    @instance_options['layout'] = @params['layout'] if @params&.key? :layout
     @pagy, @questions = pagy(Question.all.order('created_at DESC'))
-    { data: serialize(@questions, LigthQuestionSerializer), pagy: pagy_metadata(@pagy) }
+    { data: serialize(@questions, QuestionSerializer), pagy: pagy_metadata(@pagy) }
+  end
+
+  def show_callback
+    @resource = {
+      data: ActiveModelSerializers::SerializableResource.new(
+        @resource,
+        serializer: DetailedQuestionSerializer
+      )
+    }
   end
 end
