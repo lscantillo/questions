@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :department do
-    name { "Test Department" }
+    name { "Default Department" }
     abbreviation  { "TDEP" }
     is_active { true }
   end

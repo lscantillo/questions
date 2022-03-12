@@ -52,6 +52,7 @@ describe 'DELETE employee', type: :request do
     expect(response).to have_http_status(:success)
   end
 end
+
 # Get all Employees test
 describe 'GET index employees', type: :request do
   it 'returns all employees ' do
