@@ -9,8 +9,7 @@ class Api::QuestionsController < ApplicationController
 
   def index_callback
     @serializer = @params&.any?(%w[layout minimal]) ? MinimalSerializer : QuestionSerializer
-    @pagy, @questions = pagy(Question.all.order('created_at DESC'))
-    { data: serialize(@questions, @serializer), pagy: pagy_metadata(@pagy) }
+    @resources = Question.all.order('created_at DESC')
   end
 
   def show_callback
@@ -20,5 +19,6 @@ class Api::QuestionsController < ApplicationController
         serializer: DetailedQuestionSerializer
       )
     }
+    @questions = Question.all.order('created_at DESC')
   end
 end

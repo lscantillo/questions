@@ -1,13 +1,15 @@
 module RestApiController
   extend ActiveSupport::Concern
-
+  include Pagy::Backend
   included do
     before_action :resource, except: %i[index create admins]
     before_action :require_resource_params, only: %i[create update]
 
     def index
       @resources = (respond_to? :index_callback) ? index_callback : resource_class.all
-      render json: @resources, status: :ok
+      params[:items] ||= Pagy::DEFAULT[:items]
+      @pagy, @resources = pagy(@resources, items: params[:items])
+      render json: { data: serialize(@resources, @serializer), pagy: pagy_metadata(@pagy) }, status: :ok
     end
 
     def show
@@ -51,7 +53,7 @@ module RestApiController
       ActiveModelSerializers::SerializableResource.new(
         collection,
         each_serializer: serializer
-      ).as_json
+      ).as_json unless serializer.nil?
     end
 
     def resource_class
