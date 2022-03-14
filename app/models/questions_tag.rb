@@ -1,4 +1,4 @@
 class QuestionsTag < ApplicationRecord
-  has_many :questions
-  has_many :tags
+  belongs_to :question
+  belongs_to :tag
 end

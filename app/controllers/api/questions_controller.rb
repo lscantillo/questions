@@ -8,10 +8,17 @@ class Api::QuestionsController < ApplicationController
   end
 
   def index_callback
-    @questions = Question.all.order('created_at DESC')
+    @serializer = @params&.any?(%w[layout minimal]) ? MinimalSerializer : QuestionSerializer
+    @resources = Question.all.order('created_at DESC')
   end
 
   def show_callback
-    @resource = DetailedQuestionSerializer.new(@resource)
+    @resource = {
+      data: ActiveModelSerializers::SerializableResource.new(
+        @resource,
+        serializer: DetailedQuestionSerializer
+      )
+    }
+    @questions = Question.all.order('created_at DESC')
   end
 end

@@ -7,15 +7,9 @@ module RestApiController
 
     def index
       @resources = (respond_to? :index_callback) ? index_callback : resource_class.all
-      if params[:items].nil?
-        render json: @resources, status: :ok
-      else
-        @pagy, @resources = pagy(@resources, items: params[:items])
-        serializer_name = "#{resource_class.name}Serializer".constantize
-        data = serialize(@resources, serializer_name)
-        data[:pagy] = pagy_metadata(@pagy)
-        render json: data
-      end
+      params[:items] ||= Pagy::DEFAULT[:items]
+      @pagy, @resources = pagy(@resources, items: params[:items])
+      render json: { data: serialize(@resources, @serializer), pagy: pagy_metadata(@pagy) }, status: :ok
     end
 
     def show
@@ -58,8 +52,8 @@ module RestApiController
     def serialize(collection, serializer)
       ActiveModelSerializers::SerializableResource.new(
         collection,
-        each_serializer: serializer,
-      ).as_json
+        each_serializer: serializer
+      ).as_json unless serializer.nil?
     end
 
     def resource_class
