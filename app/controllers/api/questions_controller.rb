@@ -4,7 +4,7 @@ class Api::QuestionsController < ApplicationController
   after_action { pagy_headers_merge(@pagy) if @pagy }
 
   def permited_params
-    %i[employee_id assigned_to_employee_id department_id location_id is_anonymous header text_content]
+    %i[employee_id assigned_to_employee_id department_id location_id is_anonymous header text_content tags]
   end
 
   def index_callback
@@ -20,5 +20,14 @@ class Api::QuestionsController < ApplicationController
       )
     }
     @questions = Question.all.order('created_at DESC')
+  end
+
+  def create_callback
+    byebug
+    @resource.tags = Tag.Tagization(params[:question][:tags]) unless params[:question][:tags].nil?
+  end
+  
+  def update_callback
+    @resource[:tags] = Tag.Tagization(@resource[:tags]) unless @resource[:tags].nil?
   end
 end
