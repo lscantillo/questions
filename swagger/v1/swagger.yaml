@@ -4,6 +4,383 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/comments":
+    post:
+      summary: Creates a Comment
+      tags:
+      - Comments
+      parameters: []
+      responses:
+        '200':
+          description: comment created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text_content:
+                  type: string
+                question_id:
+                  type: integer
+                is_answer:
+                  type: boolean
+              required:
+              - text_content
+              - question_id
+    get:
+      summary: Get all Comments
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: comment list reveived
+  "/api/comments/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update a Comment
+      tags:
+      - Comments
+      parameters: []
+      responses:
+        '200':
+          description: comment updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text_content:
+                  type: string
+                question_id:
+                  type: integer
+                is_answer:
+                  type: boolean
+              required:
+              - text_content
+              - question_id
+    get:
+      summary: Show a Comment by id
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: comment updated
+    delete:
+      summary: Delete a Comment by id
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: comment deleted
+  "/api/departments":
+    post:
+      summary: Creates a Department
+      tags:
+      - Departments
+      parameters: []
+      responses:
+        '200':
+          description: department created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                abbreviation:
+                  type: string
+                is_active:
+                  type: boolean
+              required:
+              - name
+              - is_active
+    get:
+      summary: Get all Departments
+      tags:
+      - Departments
+      responses:
+        '200':
+          description: department list reveived
+  "/api/departments/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update a Department
+      tags:
+      - Departments
+      parameters: []
+      responses:
+        '200':
+          description: department updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                abbreviation:
+                  type: string
+                is_active:
+                  type: boolean
+              required:
+              - name
+              - is_active
+    get:
+      summary: Show a Department by id
+      tags:
+      - Departments
+      responses:
+        '200':
+          description: department updated
+    delete:
+      summary: Delete a Department by id
+      tags:
+      - Departments
+      responses:
+        '200':
+          description: department deleted
+  "/api/employees":
+    post:
+      summary: Creates a Employee
+      tags:
+      - Employees
+      parameters: []
+      responses:
+        '200':
+          description: employee created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_name:
+                  type: string
+                email:
+                  type: string
+                is_admin:
+                  type: boolean
+                job_title:
+                  type: string
+                profile_picture_url:
+                  type: string
+              required:
+              - full_name
+              - email
+    get:
+      summary: Get all Employees
+      tags:
+      - Employees
+      responses:
+        '200':
+          description: employee list reveived
+  "/api/employees/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update an Employee
+      tags:
+      - Employees
+      parameters: []
+      responses:
+        '200':
+          description: employee updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_name:
+                  type: string
+                email:
+                  type: string
+                is_admin:
+                  type: boolean
+                job_title:
+                  type: string
+                profile_picture_url:
+                  type: string
+              required:
+              - full_name
+              - email
+    get:
+      summary: Show an Employee by id
+      tags:
+      - Employees
+      responses:
+        '200':
+          description: employee updated
+    delete:
+      summary: Delete an Employee by id
+      tags:
+      - Employees
+      responses:
+        '200':
+          description: employee deleted
+  "/api/admins":
+    get:
+      summary: Admin List
+      tags:
+      - Admins
+      responses:
+        '200':
+          description: employee list reveived
+  "/api/locations":
+    post:
+      summary: Creates a Location
+      tags:
+      - Locations
+      parameters: []
+      responses:
+        '200':
+          description: location created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                code:
+                  type: string
+              required:
+              - name
+              - code
+    get:
+      summary: Get all Locations
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: location list reveived
+  "/api/locations/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update a Location
+      tags:
+      - Locations
+      parameters: []
+      responses:
+        '200':
+          description: location updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                code:
+                  type: string
+              required:
+              - name
+              - code
+    get:
+      summary: Show a Location by id
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: location updated
+    delete:
+      summary: Delete a Location by id
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: location deleted
+  "/api/tags":
+    post:
+      summary: Creates a Tag
+      tags:
+      - Tags
+      parameters: []
+      responses:
+        '200':
+          description: tag created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+    get:
+      summary: Get all Tags
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: tag list reveived
+  "/api/tags/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update a Tag
+      tags:
+      - Tags
+      parameters: []
+      responses:
+        '200':
+          description: tag updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+    get:
+      summary: Show a Tag by id
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: tag updated
+    delete:
+      summary: Delete a Tag by id
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: tag deleted
   "/healthcheck":
     get:
       summary: View status
