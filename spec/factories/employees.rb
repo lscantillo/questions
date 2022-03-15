@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :employee do
-    full_name { "John Doe" }
-    email { "JohnDoe@fake.com" }
-    job_title { "NiNi" }
+    full_name { Faker::Name.name }
+    email { Faker::Internet.email }
+    job_title { Faker::Job.title }
     is_admin { false }
-    profile_picture_url { "https://via.placeholder.com/150" }
+    profile_picture_url { Faker::LoremFlickr.image }
   end
 end

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :tag do
-    name { "Default Tag" }
+    name { Faker::Lorem.word }
   end
 end

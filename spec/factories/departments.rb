@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :department do
-    name { "Default Department" }
-    abbreviation  { "TDEP" }
+    name { Faker::Educator.subject }
+    abbreviation { Faker::Hacker.abbreviation }
     is_active { true }
   end
 end
