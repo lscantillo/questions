@@ -17,7 +17,7 @@ describe 'Questions API' do
           text_content: { type: :string },
           tags: { type: :array }
          },
-        
+        required: []
        }
     end
   end
