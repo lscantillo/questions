@@ -23,10 +23,9 @@ class Api::QuestionsController < ApplicationController
   end
 
   def create_callback
-    byebug
     @resource.tags = Tag.Tagization(params[:question][:tags]) unless params[:question][:tags].nil?
   end
-  
+
   def update_callback
     @resource[:tags] = Tag.Tagization(@resource[:tags]) unless @resource[:tags].nil?
   end
