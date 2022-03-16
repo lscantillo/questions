@@ -7,7 +7,7 @@ describe 'tag Endpoint' do
       post 'Creates a Tag' do
         tags 'Tags'
         consumes 'application/json'
-        parameter name: :tag, in: :body, schema: {
+        parameter name: :tag, in: :body ,required: true, schema: {
           type: :object,
           properties: {
             name: { type: :string }
@@ -21,10 +21,12 @@ describe 'tag Endpoint' do
       end
 
       get 'Get all Tags' do
+        parameter name: :items, in: :query, type: :integer,required: false
+        parameter name: :page, in: :query, type: :integer,required: false
         tags 'Tags'
         produces 'application/json'
 
-        response '200', 'tag list reveived' do
+        response '200', 'tag list received' do
           run_test!
         end
       end
@@ -37,7 +39,7 @@ describe 'tag Endpoint' do
        put 'Update a Tag' do
          tags 'Tags'
          consumes 'application/json'
-         parameter name: :tag, in: :body, schema: {
+         parameter name: :tag, in: :body, required: true, schema: {
            type: :object,
            properties: {
              name: { type: :string }

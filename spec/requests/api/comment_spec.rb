@@ -7,7 +7,7 @@ describe 'Comment Endpoint' do
       post 'Creates a Comment' do
         tags 'Comments'
         consumes 'application/json'
-        parameter name: :comment, in: :body, schema: {
+        parameter name: :comment, in: :body, required: true, schema: {
           type: :object,
           properties: {
             text_content: { type: :string },
@@ -23,10 +23,12 @@ describe 'Comment Endpoint' do
       end
 
       get 'Get all Comments' do
+        parameter name: :items, in: :query, type: :integer,required: false
+        parameter name: :page, in: :query, type: :integer,required: false
         tags 'Comments'
         produces 'application/json'
 
-        response '200', 'comment list reveived' do
+        response '200', 'comment list received' do
           run_test!
         end
       end
@@ -39,7 +41,7 @@ describe 'Comment Endpoint' do
        put 'Update a Comment' do
          tags 'Comments'
          consumes 'application/json'
-         parameter name: :comment, in: :body, schema: {
+         parameter name: :comment, in: :body, required: true, schema: {
            type: :object,
            properties: {
              text_content: { type: :string },

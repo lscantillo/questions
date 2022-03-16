@@ -7,7 +7,7 @@ describe 'location Endpoint' do
       post 'Creates a Location' do
         tags 'Locations'
         consumes 'application/json'
-        parameter name: :location, in: :body, schema: {
+        parameter name: :location, in: :body, required: true, schema: {
           type: :object,
           properties: {
             name: { type: :string },
@@ -22,10 +22,12 @@ describe 'location Endpoint' do
       end
 
       get 'Get all Locations' do
+        parameter name: :items, in: :query, type: :integer,required: false
+        parameter name: :page, in: :query, type: :integer,required: false
         tags 'Locations'
         produces 'application/json'
 
-        response '200', 'location list reveived' do
+        response '200', 'location list received' do
           run_test!
         end
       end
@@ -38,7 +40,7 @@ describe 'location Endpoint' do
        put 'Update a Location' do
          tags 'Locations'
          consumes 'application/json'
-         parameter name: :location, in: :body, schema: {
+         parameter name: :location, in: :body, required: true, schema: {
            type: :object,
            properties: {
              name: { type: :string },

@@ -28,13 +28,25 @@ paths:
               required:
               - text_content
               - question_id
+        required: true
     get:
       summary: Get all Comments
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
       tags:
       - Comments
       responses:
         '200':
-          description: comment list reveived
+          description: comment list received
   "/api/comments/{id}":
     parameters:
     - name: id
@@ -65,6 +77,7 @@ paths:
               required:
               - text_content
               - question_id
+        required: true
     get:
       summary: Show a Comment by id
       tags:
@@ -103,13 +116,25 @@ paths:
               required:
               - name
               - is_active
+        required: true
     get:
       summary: Get all Departments
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
       tags:
       - Departments
       responses:
         '200':
-          description: department list reveived
+          description: department list received
   "/api/departments/{id}":
     parameters:
     - name: id
@@ -140,6 +165,7 @@ paths:
               required:
               - name
               - is_active
+        required: true
     get:
       summary: Show a Department by id
       tags:
@@ -182,13 +208,25 @@ paths:
               required:
               - full_name
               - email
+        required: true
     get:
       summary: Get all Employees
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
       tags:
       - Employees
       responses:
         '200':
-          description: employee list reveived
+          description: employee list received
   "/api/employees/{id}":
     parameters:
     - name: id
@@ -223,6 +261,7 @@ paths:
               required:
               - full_name
               - email
+        required: true
     get:
       summary: Show an Employee by id
       tags:
@@ -240,11 +279,22 @@ paths:
   "/api/admins":
     get:
       summary: Admin List
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
       tags:
       - Admins
       responses:
         '200':
-          description: employee list reveived
+          description: employee list received
   "/api/locations":
     post:
       summary: Creates a Location
@@ -267,13 +317,25 @@ paths:
               required:
               - name
               - code
+        required: true
     get:
       summary: Get all Locations
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
       tags:
       - Locations
       responses:
         '200':
-          description: location list reveived
+          description: location list received
   "/api/locations/{id}":
     parameters:
     - name: id
@@ -302,6 +364,7 @@ paths:
               required:
               - name
               - code
+        required: true
     get:
       summary: Show a Location by id
       tags:
@@ -335,13 +398,25 @@ paths:
                   type: string
               required:
               - name
+        required: true
     get:
       summary: Get all Tags
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
       tags:
       - Tags
       responses:
         '200':
-          description: tag list reveived
+          description: tag list received
   "/api/tags/{id}":
     parameters:
     - name: id
@@ -367,6 +442,7 @@ paths:
                   type: string
               required:
               - name
+        required: true
     get:
       summary: Show a Tag by id
       tags:
