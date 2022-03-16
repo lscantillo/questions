@@ -7,7 +7,7 @@ describe 'department Endpoint' do
       post 'Creates a Department' do
         tags 'Departments'
         consumes 'application/json'
-        parameter name: :department, in: :body, schema: {
+        parameter name: :department, in: :body, required: true, schema: {
           type: :object,
           properties: {
             name: { type: :string },
@@ -23,10 +23,12 @@ describe 'department Endpoint' do
       end
 
       get 'Get all Departments' do
+        parameter name: :items, in: :query, type: :integer,required: false
+        parameter name: :page, in: :query, type: :integer,required: false
         tags 'Departments'
         produces 'application/json'
 
-        response '200', 'department list reveived' do
+        response '200', 'department list received' do
           run_test!
         end
       end
@@ -39,7 +41,7 @@ describe 'department Endpoint' do
        put 'Update a Department' do
          tags 'Departments'
          consumes 'application/json'
-         parameter name: :department, in: :body, schema: {
+         parameter name: :department, in: :body, required: true, schema: {
            type: :object,
            properties: {
              name: { type: :string },

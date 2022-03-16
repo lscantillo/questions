@@ -19,7 +19,7 @@ describe 'PUT tag', type: :request do
     FactoryBot.create(:tag)
     get '/api/tags'
     temp_body = JSON.parse(response.body)
-    id = temp_body["tags"][0]["id"]
+    id = temp_body["data"]["tags"][0]["id"]
     # This the same info, real PUT params are based on the resources not hard coded
     params = {
       tag: {
@@ -39,7 +39,7 @@ describe 'DELETE tag', type: :request do
     FactoryBot.create(:tag)
     get '/api/tags'
     temp_body = JSON.parse(response.body)
-    id = temp_body["tags"][0]["id"]
+    id = temp_body["data"]["tags"][0]["id"]
     delete "/api/tags/#{id}"
     expect(response).to have_http_status(:success)
   end
@@ -52,7 +52,7 @@ describe 'GET index tags', type: :request do
     get '/api/tags'
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["tags"].size).to eq(1)
+    expect(parsed_body["data"]["tags"].size).to eq(1)
   end
 end
 
@@ -62,7 +62,7 @@ describe 'SHOW tag', type: :request do
     FactoryBot.create(:tag)
     get '/api/tags'
     temp_body = JSON.parse(response.body)
-    id = temp_body["tags"][0]["id"]
+    id = temp_body["data"]["tags"][0]["id"]
     get "/api/tags/#{id}"
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)

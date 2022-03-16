@@ -7,7 +7,7 @@ describe 'Employee Endpoint' do
       post 'Creates a Employee' do
         tags 'Employees'
         consumes 'application/json'
-        parameter name: :employee, in: :body, schema: {
+        parameter name: :employee, in: :body, required: true, schema: {
           type: :object,
           properties: {
             full_name: { type: :string },
@@ -26,10 +26,12 @@ describe 'Employee Endpoint' do
       end
 
       get 'Get all Employees' do
+        parameter name: :items, in: :query, type: :integer,required: false
+        parameter name: :page, in: :query, type: :integer,required: false
         tags 'Employees'
         produces 'application/json'
 
-        response '200', 'employee list reveived' do
+        response '200', 'employee list received' do
           run_test!
         end
       end
@@ -42,7 +44,7 @@ describe 'Employee Endpoint' do
        put 'Update an Employee' do
          tags 'Employees'
          consumes 'application/json'
-         parameter name: :employee, in: :body, schema: {
+         parameter name: :employee, in: :body, required: true, schema: {
            type: :object,
            properties: {
              full_name: { type: :string },
@@ -77,10 +79,12 @@ describe 'Employee Endpoint' do
 
     path '/api/admins' do
       get 'Admin List' do
+        parameter name: :items, in: :query, type: :integer,required: false
+        parameter name: :page, in: :query, type: :integer,required: false
         tags 'Admins'
         produces 'application/json'
 
-        response '200', 'employee list reveived' do
+        response '200', 'employee list received' do
           run_test!
         end
       end
