@@ -21,7 +21,7 @@ describe 'PUT department', type: :request do
     FactoryBot.create(:department)
     get '/api/departments'
     temp_body = JSON.parse(response.body)
-    id = temp_body["departments"][0]["id"]
+    id = temp_body["data"]["departments"][0]["id"]
     # This the same info, real PUT params are based on the resources not hard coded
     params = {
       department: {
@@ -43,7 +43,7 @@ describe 'DELETE department', type: :request do
     FactoryBot.create(:department)
     get '/api/departments'
     temp_body = JSON.parse(response.body)
-    id = temp_body["departments"][0]["id"]
+    id = temp_body["data"]["departments"][0]["id"]
     delete "/api/departments/#{id}"
     expect(response).to have_http_status(:success)
   end
@@ -56,7 +56,7 @@ describe 'GET index departments', type: :request do
     get '/api/departments'
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["departments"].size).to eq(1)
+    expect(parsed_body["data"]["departments"].size).to eq(1)
   end
 end
 
@@ -66,7 +66,7 @@ describe 'SHOW department', type: :request do
     FactoryBot.create(:department)
     get '/api/departments'
     temp_body = JSON.parse(response.body)
-    id = temp_body["departments"][0]["id"]
+    id = temp_body["data"]["departments"][0]["id"]
     get "/api/departments/#{id}"
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)

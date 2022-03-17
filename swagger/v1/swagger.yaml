@@ -4,6 +4,7 @@ info:
   title: API V1
   version: v1
 paths:
+<<<<<<< HEAD
   "/api/questions":
     get:
       summary: list questions
@@ -30,12 +31,24 @@ paths:
       responses:
         '200':
           description: successful
+=======
+  "/api/comments":
+    post:
+      summary: Creates a Comment
+      tags:
+      - Comments
+      parameters: []
+      responses:
+        '200':
+          description: comment created
+>>>>>>> develop
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
+<<<<<<< HEAD
                 header:
                   type: string
                 text_content:
@@ -109,12 +122,58 @@ paths:
       responses:
         '200':
           description: successful
+=======
+                text_content:
+                  type: string
+                question_id:
+                  type: integer
+                is_answer:
+                  type: boolean
+              required:
+              - text_content
+              - question_id
+        required: true
+    get:
+      summary: Get all Comments
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: comment list received
+  "/api/comments/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update a Comment
+      tags:
+      - Comments
+      parameters: []
+      responses:
+        '200':
+          description: comment updated
+>>>>>>> develop
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
+<<<<<<< HEAD
                 header:
                   type: string
                 text_content:
@@ -140,6 +199,397 @@ paths:
       responses:
         '200':
           description: successful
+=======
+                text_content:
+                  type: string
+                question_id:
+                  type: integer
+                is_answer:
+                  type: boolean
+              required:
+              - text_content
+              - question_id
+        required: true
+    get:
+      summary: Show a Comment by id
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: comment updated
+    delete:
+      summary: Delete a Comment by id
+      tags:
+      - Comments
+      responses:
+        '200':
+          description: comment deleted
+  "/api/departments":
+    post:
+      summary: Creates a Department
+      tags:
+      - Departments
+      parameters: []
+      responses:
+        '200':
+          description: department created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                abbreviation:
+                  type: string
+                is_active:
+                  type: boolean
+              required:
+              - name
+              - is_active
+        required: true
+    get:
+      summary: Get all Departments
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      tags:
+      - Departments
+      responses:
+        '200':
+          description: department list received
+  "/api/departments/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update a Department
+      tags:
+      - Departments
+      parameters: []
+      responses:
+        '200':
+          description: department updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                abbreviation:
+                  type: string
+                is_active:
+                  type: boolean
+              required:
+              - name
+              - is_active
+        required: true
+    get:
+      summary: Show a Department by id
+      tags:
+      - Departments
+      responses:
+        '200':
+          description: department updated
+    delete:
+      summary: Delete a Department by id
+      tags:
+      - Departments
+      responses:
+        '200':
+          description: department deleted
+  "/api/employees":
+    post:
+      summary: Creates a Employee
+      tags:
+      - Employees
+      parameters: []
+      responses:
+        '200':
+          description: employee created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_name:
+                  type: string
+                email:
+                  type: string
+                is_admin:
+                  type: boolean
+                job_title:
+                  type: string
+                profile_picture_url:
+                  type: string
+              required:
+              - full_name
+              - email
+        required: true
+    get:
+      summary: Get all Employees
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      tags:
+      - Employees
+      responses:
+        '200':
+          description: employee list received
+  "/api/employees/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update an Employee
+      tags:
+      - Employees
+      parameters: []
+      responses:
+        '200':
+          description: employee updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_name:
+                  type: string
+                email:
+                  type: string
+                is_admin:
+                  type: boolean
+                job_title:
+                  type: string
+                profile_picture_url:
+                  type: string
+              required:
+              - full_name
+              - email
+        required: true
+    get:
+      summary: Show an Employee by id
+      tags:
+      - Employees
+      responses:
+        '200':
+          description: employee updated
+    delete:
+      summary: Delete an Employee by id
+      tags:
+      - Employees
+      responses:
+        '200':
+          description: employee deleted
+  "/api/admins":
+    get:
+      summary: Admin List
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      tags:
+      - Admins
+      responses:
+        '200':
+          description: employee list received
+  "/api/locations":
+    post:
+      summary: Creates a Location
+      tags:
+      - Locations
+      parameters: []
+      responses:
+        '200':
+          description: location created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                code:
+                  type: string
+              required:
+              - name
+              - code
+        required: true
+    get:
+      summary: Get all Locations
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: location list received
+  "/api/locations/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update a Location
+      tags:
+      - Locations
+      parameters: []
+      responses:
+        '200':
+          description: location updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                code:
+                  type: string
+              required:
+              - name
+              - code
+        required: true
+    get:
+      summary: Show a Location by id
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: location updated
+    delete:
+      summary: Delete a Location by id
+      tags:
+      - Locations
+      responses:
+        '200':
+          description: location deleted
+  "/api/tags":
+    post:
+      summary: Creates a Tag
+      tags:
+      - Tags
+      parameters: []
+      responses:
+        '200':
+          description: tag created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+        required: true
+    get:
+      summary: Get all Tags
+      parameters:
+      - name: items
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: tag list received
+  "/api/tags/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      summary: Update a Tag
+      tags:
+      - Tags
+      parameters: []
+      responses:
+        '200':
+          description: tag updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+        required: true
+    get:
+      summary: Show a Tag by id
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: tag updated
+    delete:
+      summary: Delete a Tag by id
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: tag deleted
+>>>>>>> develop
   "/healthcheck":
     get:
       summary: View status

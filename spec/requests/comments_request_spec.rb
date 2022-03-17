@@ -6,7 +6,7 @@ describe 'POST comments', type: :request do
     FactoryBot.create(:question)
     get '/api/questions'
     temp_body = JSON.parse(response.body)
-    id = temp_body["questions"][0]["id"]
+    id = temp_body["data"]["questions"][0]["id"]
     params = {
       comment: {
         text_content: "Test Comment Content",
@@ -24,11 +24,11 @@ describe 'PUT comment', type: :request do
     FactoryBot.create(:question)
     get '/api/questions'
     temp_body = JSON.parse(response.body)
-    question_id = temp_body["questions"][0]["id"]
+    question_id = temp_body["data"]["questions"][0]["id"]
     FactoryBot.create(:comment, question_id: question_id)
     get '/api/comments'
     temp_body = JSON.parse(response.body)
-    id = temp_body["comments"][0]["id"]
+    id = temp_body["data"]["comments"][0]["id"]
     # This the same info, real PUT params are based on the resources not hard coded
     params = {
       comment: {
@@ -48,11 +48,11 @@ describe 'DELETE comment', type: :request do
     FactoryBot.create(:question)
     get '/api/questions'
     temp_body = JSON.parse(response.body)
-    question_id = temp_body["questions"][0]["id"]
+    question_id = temp_body["data"]["questions"][0]["id"]
     FactoryBot.create(:comment, question_id: question_id)
     get '/api/comments'
     temp_body = JSON.parse(response.body)
-    id = temp_body["comments"][0]["id"]
+    id = temp_body["data"]["comments"][0]["id"]
     delete "/api/comments/#{id}"
     expect(response).to have_http_status(:success)
   end
@@ -64,12 +64,12 @@ describe 'GET index comments', type: :request do
     FactoryBot.create(:question)
     get '/api/questions'
     temp_body = JSON.parse(response.body)
-    question_id = temp_body["questions"][0]["id"]
+    question_id = temp_body["data"]["questions"][0]["id"]
     FactoryBot.create(:comment, question_id: question_id)
     get '/api/comments'
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["comments"].size).to eq(1)
+    expect(parsed_body["data"]["comments"].size).to eq(1)
   end
 end
 
@@ -79,11 +79,11 @@ describe 'SHOW comment', type: :request do
     FactoryBot.create(:question)
     get '/api/questions'
     temp_body = JSON.parse(response.body)
-    question_id = temp_body["questions"][0]["id"]
+    question_id = temp_body["data"]["questions"][0]["id"]
     FactoryBot.create(:comment, question_id: question_id)
     get '/api/comments'
     temp_body = JSON.parse(response.body)
-    id = temp_body["comments"][0]["id"]
+    id = temp_body["data"]["comments"][0]["id"]
     get "/api/comments/#{id}"
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
