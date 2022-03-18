@@ -9,24 +9,31 @@ module RestApiController
       @resources = (respond_to? :index_callback) ? index_callback : resource_class.all
       @serializer ||= "#{resource_class}Serializer".constantize
       if params[:items].nil?
-        render json: { data: serialize(@resources, @serializer) }, status: :ok
+        render json: {
+          data: serialize(@resources, @serializer)[resource_class.to_s.pluralize.downcase.to_sym]
+        }, status: :ok
       else
         params[:items] ||= Pagy::DEFAULT[:items]
         @pagy, @resources = pagy(@resources, items: params[:items])
-        render json: { data: serialize(@resources, @serializer), pagy: pagy_metadata(@pagy) }, status: :ok
+        render json: {
+          data: serialize(@resources, @serializer)[resource_class.to_s.pluralize.downcase.to_sym],
+          pagy: pagy_metadata(@pagy)
+        }, status: :ok
       end
     end
 
     def show
       show_callback if respond_to? :show_callback
-      render json: @resource, status: :ok
+      @serializer ||= "#{resource_class}Serializer".constantize
+      render json: serialize(@resource, @serializer)[resource_class.to_s.downcase.to_sym], status: :ok
     end
 
     def create
       @resource = resource_class.create(@params)
       create_callback if respond_to? :create_callback
+      @serializer ||= "#{resource_class}Serializer".constantize
       if @resource.saved_changes?
-        render json: @resource, status: :ok
+        render json: serialize(@resource, @serializer)[resource_class.to_s.downcase.to_sym], status: :ok
       else
         render :json, status: :conflict
       end
@@ -36,7 +43,7 @@ module RestApiController
       @resource.update(@params)
       update_callback if respond_to? :update_callback
       if @resource.saved_changes?
-        render json: @resource, status: :ok
+        render json: serialize(@resource, @serializer)[resource_class.to_s.downcase.to_sym], status: :ok
       else
         render json: { message: 'Nothing has changed' }, status: :conflict
       end
@@ -54,11 +61,18 @@ module RestApiController
 
     private
 
-    def serialize(collection, serializer)
-      ActiveModelSerializers::SerializableResource.new(
-        collection,
-        each_serializer: serializer
-      ).as_json unless serializer.nil?
+    def serialize(resource, serializer)
+      if resource.is_a? Enumerable
+        ActiveModelSerializers::SerializableResource.new(
+          resource,
+          each_serializer: serializer
+        ).as_json
+      else
+        ActiveModelSerializers::SerializableResource.new(
+          resource,
+          serializer: serializer
+        ).as_json
+      end
     end
 
     def resource_class
