@@ -4,7 +4,8 @@ module RestApiController
   included do
     before_action :resource, except: %i[index create admins]
     before_action :require_resource_params, only: %i[create update]
-
+    before_action :authorize_request
+    
     def index
       @resources = (respond_to? :index_callback) ? index_callback : resource_class.all
       @serializer ||= "#{resource_class}Serializer".constantize

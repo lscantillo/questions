@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
     rescue ActiveRecord::RecordNotFound => e
       render json: { error: e.message }, status: :not_found
     rescue JWT::DecodeError => e
-      render json: { error: e.message }, status: :interna_error
+      render json: { error: e.message }, status: :internal_error
     rescue JWT::ExpiredError => e
       render json: { error: e.message }, status: :unauthorized
     end
