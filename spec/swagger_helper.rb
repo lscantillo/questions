@@ -21,6 +21,20 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1'
       },
+      components: {
+        securitySchemes: {
+            bearerAuth: {
+              type: :http,
+              scheme: :bearer,
+              bearerFormat: :JWT,
+              name: :Authorization,
+              in: :header
+            },
+        }
+      },
+      security: [
+        { bearerAuth: [] }
+      ],
       paths: {},
       servers: [
         { url: 'https://wizeline-questions-qa.herokuapp.com' },
