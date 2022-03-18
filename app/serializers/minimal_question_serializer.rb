@@ -10,4 +10,13 @@ class MinimalQuestionSerializer < ActiveModel::Serializer
   def comment_count
     object.comments.count
   end
+
+  class EmployeeSerializer < ActiveModel::Serializer
+    attributes :full_name, :email, :is_admin, :job_title, :profile_picture_url
+    has_one :department, unless: -> { object.department_id.nil? }
+  end
+
+  class DepartmentSerializer < ActiveModel::Serializer
+    attributes :name, :is_active
+  end
 end

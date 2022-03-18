@@ -13,10 +13,7 @@ class Api::QuestionsController < ApplicationController
   end
 
   def show_callback
-    @resource = { data: ActiveModelSerializers::SerializableResource.new(
-        @resource,
-        serializer: DetailedQuestionSerializer)}
-    @questions = Question.all.order('created_at DESC')
+    @serializer = DetailedQuestionSerializer
   end
 
   def create_callback
