@@ -4,6 +4,34 @@ info:
   title: API V1
   version: v1
 paths:
+<<<<<<< HEAD
+  "/api/questions":
+    get:
+      summary: list questions
+      tags:
+      - Questions
+      parameters:
+      - name: layout
+        in: query
+        default: classic
+        schema:
+          type: string
+      - name: items
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create question
+      tags:
+      - Questions
+      parameters: []
+      responses:
+        '200':
+          description: successful
+=======
   "/api/comments":
     post:
       summary: Creates a Comment
@@ -13,12 +41,88 @@ paths:
       responses:
         '200':
           description: comment created
+>>>>>>> develop
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
+<<<<<<< HEAD
+                header:
+                  type: string
+                text_content:
+                  type: string
+                is_anonymous:
+                  type: boolean
+                employee_id:
+                  type: integer
+                assigned_to_employee_id:
+                  type: integer
+                department_id:
+                  type: integer
+                location_id:
+                  type: integer
+              required:
+              - header
+              - text_content
+        required: true
+  "/api/questions/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show question
+      tags:
+      - Questions
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update question
+      tags:
+      - Questions
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                header:
+                  type: string
+                text_content:
+                  type: string
+                is_anonymous:
+                  type: boolean
+                employee_id:
+                  type: integer
+                assigned_to_employee_id:
+                  type: integer
+                department_id:
+                  type: integer
+                location_id:
+                  type: integer
+              required:
+              - header
+              - text_content
+        required: true
+    put:
+      summary: update question
+      tags:
+      - Questions
+      parameters: []
+      responses:
+        '200':
+          description: successful
+=======
                 text_content:
                   type: string
                 question_id:
@@ -62,12 +166,40 @@ paths:
       responses:
         '200':
           description: comment updated
+>>>>>>> develop
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
+<<<<<<< HEAD
+                header:
+                  type: string
+                text_content:
+                  type: string
+                is_anonymous:
+                  type: boolean
+                employee_id:
+                  type: integer
+                assigned_to_employee_id:
+                  type: integer
+                department_id:
+                  type: integer
+                location_id:
+                  type: integer
+              required:
+              - header
+              - text_content
+        required: true
+    delete:
+      summary: delete question
+      tags:
+      - Questions
+      responses:
+        '200':
+          description: successful
+=======
                 text_content:
                   type: string
                 question_id:
@@ -457,6 +589,7 @@ paths:
       responses:
         '200':
           description: tag deleted
+>>>>>>> develop
   "/healthcheck":
     get:
       summary: View status
