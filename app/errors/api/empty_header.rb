@@ -1,4 +1,4 @@
-class EmptyHeader < StandardError
+class Api::EmptyHeader < StandardError
   attr_reader :code
 
   def initialize(code)

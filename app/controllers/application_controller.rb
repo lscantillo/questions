@@ -6,13 +6,13 @@ class ApplicationController < ActionController::API
     header = header.split.last if header
 
     begin
-      # raise EmptyHeader.new(888) if header.nil?
+      raise Api::EmptyHeader.new(888) if header.nil?
       @decoded = JsonWebToken::Encoder.decode(header)
       raise JWT::ExpiredError, header if (Time.now <=> Time.at(@decoded['exp'])) == 1
 
       @current_user = Employee.find_by_email(@decoded['email'])
-    # rescue EmptyHeader => e
-    #   render json: { code: e.code, error: "No authorization token provided in header" }, status: :unauthorized
+    rescue Api::EmptyHeader => e
+      render json: { code: e.code, error: "No authorization token provided in header" }, status: :unauthorized
     rescue ActiveRecord::RecordNotFound => e
       render json: { error: e.message }, status: :not_found
     rescue JWT::DecodeError => e
