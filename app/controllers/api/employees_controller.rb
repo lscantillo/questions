@@ -8,10 +8,11 @@ class Api::EmployeesController < ApplicationController
   def admins
     @admins = Employee.where(is_admin: true)
     @serializer ||= "#{resource_class}Serializer".constantize
-    if params[:items].nil?
+    if params[:items].nil? && params[:page].nil?
       render json: { data: serialize(@admins, @serializer)[resource_class.to_s.downcase.pluralize.to_sym] }, status: :ok
     else
       params[:items] ||= Pagy::DEFAULT[:items]
+      params[:page] ||= Pagy::DEFAULT[:page]
       @pagy, @admins = pagy(@admins, items: params[:items])
       render json: { data: serialize(@admins, @serializer)[resource_class.to_s.downcase.pluralize.to_sym], pagy: pagy_metadata(@pagy) },
              status: :ok
