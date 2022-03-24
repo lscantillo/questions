@@ -4,10 +4,8 @@ require 'rails_helper'
 describe 'POST locations', type: :request do
   it 'create a new location' do
     params = {
-      location: {
-        name: "Test Location",
-        code: "TLOC"
-      }
+      name: 'Test Location',
+      code: 'TLOC'
     }
     post '/api/locations', params: params
     expect(response).to have_http_status(:success)
@@ -20,18 +18,16 @@ describe 'PUT location', type: :request do
     FactoryBot.create(:location)
     get '/api/locations'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["locations"][0]["id"]
+    id = temp_body['data'][0]['id']
     # This the same info, real PUT params are based on the resources not hard coded
     params = {
-      location: {
-        name: "Test Location",
-        code: "TLOC"
-      }
+      name: 'Test Location',
+      code: 'TLOC'
     }
     put "/api/locations/#{id}", params: params
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["location"]["name"]).to eq("Test Location")
+    expect(parsed_body['name']).to eq('Test Location')
   end
 end
 
@@ -41,7 +37,7 @@ describe 'DELETE location', type: :request do
     FactoryBot.create(:location)
     get '/api/locations'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["locations"][0]["id"]
+    id = temp_body['data'][0]['id']
     delete "/api/locations/#{id}"
     expect(response).to have_http_status(:success)
   end
@@ -54,10 +50,9 @@ describe 'GET index locations', type: :request do
     get '/api/locations'
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["data"]["locations"].size).to eq(1)
+    expect(parsed_body['data'].size).to eq(1)
   end
 end
-
 
 # Show a single location
 describe 'SHOW location', type: :request do
@@ -65,10 +60,10 @@ describe 'SHOW location', type: :request do
     FactoryBot.create(:location)
     get '/api/locations'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["locations"][0]["id"]
+    id = temp_body['data'][0]['id']
     get "/api/locations/#{id}"
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["location"]["id"]).to eq(id)
+    expect(parsed_body['id']).to eq(id)
   end
 end
