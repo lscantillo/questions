@@ -4,13 +4,11 @@ require 'rails_helper'
 describe 'POST employees', type: :request do
   it 'create a new employee' do
     params = {
-      employee: {
-        full_name: "John Doe",
-        email: "JohnDoe@fake.com",
-        job_title: "NiNi",
-        is_admin: false,
-        profile_picture_url: "https://via.placeholder.com/150"
-      }
+      full_name: 'John Doe',
+      email: 'JohnDoe@fake.com',
+      job_title: 'NiNi',
+      is_admin: false,
+      profile_picture_url: 'https://via.placeholder.com/150'
     }
     post '/api/employees', params: params
     expect(response).to have_http_status(:success)
@@ -23,21 +21,19 @@ describe 'PUT employee', type: :request do
     FactoryBot.create(:employee)
     get '/api/employees'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["employees"][0]["id"]
+    id = temp_body['data'][0]['id']
     # This the same info, real PUT params are based on the resources not hard coded
     params = {
-      employee: {
-        full_name: "New Name",
-        email: "JohnDoe@fake.com",
-        job_title: "NiNi",
-        is_admin: false,
-        profile_picture_url: "https://via.placeholder.com/150"
-      }
+      full_name: 'New Name',
+      email: 'JohnDoe@fake.com',
+      job_title: 'NiNi',
+      is_admin: false,
+      profile_picture_url: 'https://via.placeholder.com/150'
     }
     put "/api/employees/#{id}", params: params
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["employee"]["full_name"]).to eq("New Name")
+    expect(parsed_body['full_name']).to eq('New Name')
   end
 end
 
@@ -47,7 +43,7 @@ describe 'DELETE employee', type: :request do
     FactoryBot.create(:employee)
     get '/api/employees'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["employees"][0]["id"]
+    id = temp_body['data'][0]['id']
     delete "/api/employees/#{id}"
     expect(response).to have_http_status(:success)
   end
@@ -60,18 +56,19 @@ describe 'GET index employees', type: :request do
     get '/api/employees'
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["data"]["employees"].size).to eq(1)
+    expect(parsed_body['data'].size).to eq(1)
   end
 end
 
 # Get Admin list test
-describe 'GET admins',type: :request do
+describe 'GET admins', type: :request do
   it 'returns all employees ' do
-    FactoryBot.create(:employee,is_admin: true)
+    FactoryBot.create(:employee, is_admin: true)
     get '/api/admins'
     parsed_body = JSON.parse(response.body)
+    puts parsed_body
     expect(response).to have_http_status(:success)
-    expect(parsed_body["data"]["employees"][0]["is_admin"]).to eq(true)
+    expect(parsed_body['data'][0]['is_admin']).to eq(true)
   end
 end
 
@@ -81,10 +78,10 @@ describe 'SHOW employee', type: :request do
     FactoryBot.create(:employee)
     get '/api/employees'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["employees"][0]["id"]
+    id = temp_body['data'][0]['id']
     get "/api/employees/#{id}"
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["employee"]["id"]).to eq(id)
+    expect(parsed_body['id']).to eq(id)
   end
 end

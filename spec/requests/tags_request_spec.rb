@@ -4,9 +4,7 @@ require 'rails_helper'
 describe 'POST tags', type: :request do
   it 'create a new tag' do
     params = {
-      tag: {
-        name: "Test tag"
-      }
+      name: 'Test tag'
     }
     post '/api/tags', params: params
     expect(response).to have_http_status(:success)
@@ -19,17 +17,15 @@ describe 'PUT tag', type: :request do
     FactoryBot.create(:tag)
     get '/api/tags'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["tags"][0]["id"]
+    id = temp_body['data'][0]['id']
     # This the same info, real PUT params are based on the resources not hard coded
     params = {
-      tag: {
-        name: "Test tag"
-      }
+      name: 'Test tag'
     }
     put "/api/tags/#{id}", params: params
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["tag"]["name"]).to eq("Test tag")
+    expect(parsed_body['name']).to eq('Test tag')
   end
 end
 
@@ -39,7 +35,7 @@ describe 'DELETE tag', type: :request do
     FactoryBot.create(:tag)
     get '/api/tags'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["tags"][0]["id"]
+    id = temp_body['data'][0]['id']
     delete "/api/tags/#{id}"
     expect(response).to have_http_status(:success)
   end
@@ -52,7 +48,7 @@ describe 'GET index tags', type: :request do
     get '/api/tags'
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["data"]["tags"].size).to eq(1)
+    expect(parsed_body['data'].size).to eq(1)
   end
 end
 
@@ -62,10 +58,10 @@ describe 'SHOW tag', type: :request do
     FactoryBot.create(:tag)
     get '/api/tags'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["tags"][0]["id"]
+    id = temp_body['data'][0]['id']
     get "/api/tags/#{id}"
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["tag"]["id"]).to eq(id)
+    expect(parsed_body['id']).to eq(id)
   end
 end

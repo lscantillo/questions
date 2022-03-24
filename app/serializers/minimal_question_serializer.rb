@@ -19,4 +19,8 @@ class MinimalQuestionSerializer < ActiveModel::Serializer
   class DepartmentSerializer < ActiveModel::Serializer
     attributes :name, :is_active
   end
+
+  class TagSerializer < ActiveModel::Serializer
+    attributes :name
+  end
 end
