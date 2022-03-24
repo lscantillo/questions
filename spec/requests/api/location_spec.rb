@@ -8,15 +8,24 @@ describe 'location Endpoint' do
         tags 'Locations'
         consumes 'application/json'
         parameter name: :location, in: :body, required: true, schema: {
-          type: :object,
-          properties: {
-            name: { type: :string },
-            code: { type: :string }
-          },
-          required: [ 'name', 'code' ]
+          '$ref' => '#/definitions/location'
         }
         response '200', 'location created' do
-          let(:location) { { name: 'foo', code: 'TODO' } }
+          examples 'application/json' => {
+            id: 1,
+            name: "string",
+            code: "string"
+          }
+          run_test!
+        end
+        response '400', 'Bad Request' do
+          examples 'application/json' => {
+            "error": 0,
+            "message": "string"
+          }
+          run_test!
+        end
+        response '401', 'Authentication failed' do
           run_test!
         end
       end
@@ -28,6 +37,26 @@ describe 'location Endpoint' do
         produces 'application/json'
 
         response '200', 'location list received' do
+          examples 'application/json' => {
+            data: [
+              id: 1,
+              name: "string",
+              code: "string"
+            ]
+          }
+          run_test!
+        end
+        response '400', 'Bad Request' do
+          examples 'application/json' => {
+            "error": 0,
+            "message": "string"
+          }
+          run_test!
+        end
+        response '401', 'Authentication failed' do
+          run_test!
+        end
+        response '404', 'Resource not Found' do
           run_test!
         end
       end
@@ -41,15 +70,31 @@ describe 'location Endpoint' do
          tags 'Locations'
          consumes 'application/json'
          parameter name: :location, in: :body, required: true, schema: {
-           type: :object,
-           properties: {
-             name: { type: :string },
-             code: { type: :string }
-           },
-           required: [ 'name', 'code' ]
+           '$ref' => '#/definitions/location'
          }
          response '200', 'location updated' do
+           examples 'application/json' => {
+             id: 1,
+             name: "string",
+             code: "string"
+           }
           run_test!
+         end
+         response '400', 'Bad Request' do
+           examples 'application/json' => {
+             "error": 0,
+             "message": "string"
+           }
+           run_test!
+         end
+         response '401', 'Authentication failed' do
+           run_test!
+         end
+         response '404', 'Resource not Found' do
+           run_test!
+         end
+         response '409', 'No changes' do
+           run_test!
          end
        end
 
@@ -57,7 +102,25 @@ describe 'location Endpoint' do
          tags 'Locations'
          produces 'application/json'
          response '200', 'location updated' do
+           examples 'application/json' => {
+             id: 1,
+             name: "string",
+             code: "string"
+           }
           run_test!
+         end
+         response '400', 'Bad Request' do
+           examples 'application/json' => {
+             "error": 0,
+             "message": "string"
+           }
+           run_test!
+         end
+         response '401', 'Authentication failed' do
+           run_test!
+         end
+         response '404', 'Resource not Found' do
+           run_test!
          end
        end
 
@@ -66,6 +129,12 @@ describe 'location Endpoint' do
          produces 'application/json'
          response '200', 'location deleted' do
           run_test!
+         end
+         response '401', 'Authentication failed' do
+           run_test!
+         end
+         response '404', 'Resource not Found' do
+           run_test!
          end
        end
     end

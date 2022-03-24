@@ -8,16 +8,36 @@ describe 'department Endpoint' do
         tags 'Departments'
         consumes 'application/json'
         parameter name: :department, in: :body, required: true, schema: {
-          type: :object,
-          properties: {
-            name: { type: :string },
-            abbreviation: { type: :string },
-            is_active: { type: :boolean }
-          },
-          required: [ 'name', 'is_active' ]
+          '$ref' => '#/definitions/department'
         }
         response '200', 'department created' do
-          let(:department) { { name: 'foo', is_active: true } }
+          examples 'application/json' => {
+            id: 1,
+            name: "string",
+            is_active: true,
+            abbreviation: "string",
+            employees: [
+              {
+                id: 0,
+                full_name: "string",
+                email: "string",
+                is_admin: false,
+                job_title: "string",
+                profile_picture_url: "string",
+                department_id: 0
+              }
+            ]
+          }
+          run_test!
+        end
+        response '400', 'Bad Request' do
+          examples 'application/json' => {
+            "error": 0,
+            "message": "string"
+          }
+          run_test!
+        end
+        response '401', 'Authentication failed' do
           run_test!
         end
       end
@@ -29,6 +49,38 @@ describe 'department Endpoint' do
         produces 'application/json'
 
         response '200', 'department list received' do
+          run_test!
+          examples 'application/json' => {
+            data: [
+              id: 1,
+              name: "string",
+              is_active: true,
+              abbreviation: "string",
+              employees: [
+                {
+                  id: 0,
+                  full_name: "string",
+                  email: "string",
+                  is_admin: false,
+                  job_title: "string",
+                  profile_picture_url: "string",
+                  department_id: 0
+                }
+              ]
+            ]
+          }
+        end
+        response '400', 'Bad Request' do
+          examples 'application/json' => {
+            "error": 0,
+            "message": "string"
+          }
+          run_test!
+        end
+        response '404', 'Resource not Found' do
+          run_test!
+        end
+        response '401', 'Authentication failed' do
           run_test!
         end
       end
@@ -42,16 +94,43 @@ describe 'department Endpoint' do
          tags 'Departments'
          consumes 'application/json'
          parameter name: :department, in: :body, required: true, schema: {
-           type: :object,
-           properties: {
-             name: { type: :string },
-             abbreviation: { type: :string },
-             is_active: { type: :boolean }
-           },
-           required: [ 'name', 'is_active' ]
+           '$ref' => '#/definitions/department'
          }
          response '200', 'department updated' do
+           examples 'application/json' => {
+             id: 1,
+             name: "string",
+             is_active: true,
+             abbreviation: "string",
+             employees: [
+               {
+                 id: 0,
+                 full_name: "string",
+                 email: "string",
+                 is_admin: false,
+                 job_title: "string",
+                 profile_picture_url: "string",
+                 department_id: 0
+               }
+             ]
+           }
           run_test!
+         end
+         response '400', 'Bad Request' do
+           examples 'application/json' => {
+             "error": 0,
+             "message": "string"
+           }
+           run_test!
+         end
+         response '401', 'Authentication failed' do
+           run_test!
+         end
+         response '404', 'Resource not Found' do
+           run_test!
+         end
+         response '409', 'No changes' do
+           run_test!
          end
        end
 
@@ -59,7 +138,37 @@ describe 'department Endpoint' do
          tags 'Departments'
          produces 'application/json'
          response '200', 'department updated' do
+           examples 'application/json' => {
+             id: 1,
+             name: "string",
+             is_active: true,
+             abbreviation: "string",
+             employees: [
+               {
+                 id: 0,
+                 full_name: "string",
+                 email: "string",
+                 is_admin: false,
+                 job_title: "string",
+                 profile_picture_url: "string",
+                 department_id: 0
+               }
+             ]
+           }
           run_test!
+         end
+         response '400', 'Bad Request' do
+           examples 'application/json' => {
+             "error": 0,
+             "message": "string"
+           }
+           run_test!
+         end
+         response '401', 'Authentication failed' do
+           run_test!
+         end
+         response '404', 'Resource not Found' do
+           run_test!
          end
        end
 
@@ -68,6 +177,12 @@ describe 'department Endpoint' do
          produces 'application/json'
          response '200', 'department deleted' do
           run_test!
+         end
+         response '401', 'Authentication failed' do
+           run_test!
+         end
+         response '404', 'Resource not Found' do
+           run_test!
          end
        end
     end
