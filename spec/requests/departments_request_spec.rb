@@ -4,11 +4,9 @@ require 'rails_helper'
 describe 'POST departments', type: :request do
   it 'create a new department' do
     params = {
-      department: {
-        name: "Test Dept",
-        is_active: true,
-        abbreviatio: "TEST"
-      }
+      name: 'Test Dept',
+      is_active: true,
+      abbreviatio: 'TEST'
     }
     post '/api/departments', params: params
     expect(response).to have_http_status(:success)
@@ -21,19 +19,17 @@ describe 'PUT department', type: :request do
     FactoryBot.create(:department)
     get '/api/departments'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["departments"][0]["id"]
+    id = temp_body['data'][0]['id']
     # This the same info, real PUT params are based on the resources not hard coded
     params = {
-      department: {
-        name: "Updated Dept",
-        is_active: true,
-        abbreviatio: "TEST"
-      }
+      name: 'Updated Dept',
+      is_active: true,
+      abbreviatio: 'TEST'
     }
     put "/api/departments/#{id}", params: params
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["department"]["name"]).to eq("Updated Dept")
+    expect(parsed_body['name']).to eq('Updated Dept')
   end
 end
 
@@ -43,7 +39,7 @@ describe 'DELETE department', type: :request do
     FactoryBot.create(:department)
     get '/api/departments'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["departments"][0]["id"]
+    id = temp_body['data'][0]['id']
     delete "/api/departments/#{id}"
     expect(response).to have_http_status(:success)
   end
@@ -56,7 +52,7 @@ describe 'GET index departments', type: :request do
     get '/api/departments'
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["data"]["departments"].size).to eq(1)
+    expect(parsed_body['data'].size).to eq(1)
   end
 end
 
@@ -66,10 +62,10 @@ describe 'SHOW department', type: :request do
     FactoryBot.create(:department)
     get '/api/departments'
     temp_body = JSON.parse(response.body)
-    id = temp_body["data"]["departments"][0]["id"]
+    id = temp_body['data'][0]['id']
     get "/api/departments/#{id}"
     parsed_body = JSON.parse(response.body)
     expect(response).to have_http_status(:success)
-    expect(parsed_body["department"]["id"]).to eq(id)
+    expect(parsed_body['id']).to eq(id)
   end
 end
