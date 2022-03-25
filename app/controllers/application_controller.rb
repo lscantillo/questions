@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
     begin
       raise Api::EmptyHeader.new(401) if header.nil?
       @decoded = JsonWebToken::Encoder.decode(header)
-      raise JWT::ExpiredError, header if (Time.now <=> Time.at(@decoded['exp'])) == 1
+      raise JWT::ExpiredSignature, header if (Time.now <=> Time.at(@decoded['exp'])) == 1
       employee_params = {
         full_name: @decoded['name'],
         email: @decoded['email'],
@@ -20,10 +20,10 @@ class ApplicationController < ActionController::API
       render json: { code: e.code, error: e.message }, status: :unauthorized
     rescue ActiveRecord::RecordNotFound => e
       render json: { error: e.message }, status: :not_found
+    rescue JWT::ExpiredSignature => e
+      render json: { error: "Expired token", status_code: 401}, status: :unauthorized
     rescue JWT::DecodeError => e
       render json: { error: "Could not decode authetication token", status_code: 401}, status: :unauthorized
-    rescue JWT::ExpiredError => e
-      render json: { error: e.message }, status: :unauthorized
     end
   end
 
