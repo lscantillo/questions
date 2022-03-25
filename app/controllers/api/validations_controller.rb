@@ -9,7 +9,7 @@ class Api::ValidationsController < ApplicationController
     else
       params[:items] ||= Pagy::DEFAULT[:items]
       params[:page] ||= Pagy::DEFAULT[:page]
-      @pagy, @records = pagy_array(@results, items: params[:items])
+      @pagy, @records = pagy(@results, items: params[:items])
       render json: { data: @records,
                      pagy: pagy_metadata(@pagy) }
     end
