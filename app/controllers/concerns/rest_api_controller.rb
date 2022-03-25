@@ -9,12 +9,13 @@ module RestApiController
     def index
       @resources = (respond_to? :index_callback) ? index_callback : resource_class.all
       @serializer ||= "#{resource_class}Serializer".constantize
-      if params[:items].nil?
+      if params[:items].nil? && params[:page]
         render json: {
           data: serialize(@resources, @serializer)[resource_class.to_s.pluralize.downcase.to_sym]
         }, status: :ok
       else
         params[:items] ||= Pagy::DEFAULT[:items]
+        params[:page] ||= Pagy::DEFAULT[:page]
         @pagy, @resources = pagy(@resources, items: params[:items])
         render json: {
           data: serialize(@resources, @serializer)[resource_class.to_s.pluralize.downcase.to_sym],
