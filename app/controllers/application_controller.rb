@@ -9,8 +9,13 @@ class ApplicationController < ActionController::API
       raise Api::EmptyHeader.new(401) if header.nil?
       @decoded = JsonWebToken::Encoder.decode(header)
       raise JWT::ExpiredError, header if (Time.now <=> Time.at(@decoded['exp'])) == 1
-
-      @current_user = Employee.find_by_email(@decoded['email'])
+      employee_params = {
+        full_name: @decoded['name'],
+        email: @decoded['email'],
+        is_admin: false,
+        profile_picture_url: @decoded['picture']
+      }
+      @current_user = Employee.find_or_create_by(employee_params)
     rescue Api::EmptyHeader => e
       render json: { code: e.code, error: e.message }, status: :unauthorized
     rescue ActiveRecord::RecordNotFound => e
