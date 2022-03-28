@@ -21,6 +21,78 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1'
       },
+      definitions: {
+        comment: {
+          type: 'object',
+          properties: {
+            text_content: { type: :string },
+            question_id: { type: :integer }
+          },
+          required: [ 'text_content', 'question_id' ]
+        },
+        department: {
+          type: 'object',
+          properties: {
+            name: { type: :string },
+            abbreviation: { type: :string },
+            is_active: { type: :boolean }
+          },
+          required: [ 'name', 'is_active' ]
+        },
+        employee: {
+          type: 'object',
+          properties: {
+            full_name: { type: :string },
+            email: { type: :string },
+            is_admin: { type: :boolean },
+            job_title: { type: :string },
+            profile_picture_url: { type: :string }
+          },
+          required: [ 'full_name', 'email' ]
+        },
+        location:{
+          type: 'object',
+          properties: {
+            name: { type: :string },
+            code: { type: :string }
+          },
+          required: [ 'name', 'code' ]
+        },
+        question:{
+          type: 'object',
+          properties: {
+            header: { type: :string },
+            text_content: { type: :string },
+            is_anonymous: { type: :boolean },
+            employee_id: { type: :integer },
+            assigned_to_employee_id: { type: :integer },
+            department_id: { type: :integer },
+            location_id: { type: :integer }
+          },
+          required: %w[header text_content]
+        },
+        tag: {
+          type: 'object',
+          properties: {
+            name: { type: :string }
+          },
+          required: [ 'name' ]
+        }
+      },
+      components: {
+        securitySchemes: {
+            bearerAuth: {
+              type: :http,
+              scheme: :bearer,
+              bearerFormat: :JWT,
+              name: :Authorization,
+              in: :header
+            },
+        }
+      },
+      security: [
+        { bearerAuth: [] }
+      ],
       paths: {},
       servers: [
         { url: 'https://wizeline-questions-qa.herokuapp.com' },

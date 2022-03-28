@@ -3,6 +3,92 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
+definitions:
+  comment:
+    type: object
+    properties:
+      text_content:
+        type: string
+      question_id:
+        type: integer
+    required:
+    - text_content
+    - question_id
+  department:
+    type: object
+    properties:
+      name:
+        type: string
+      abbreviation:
+        type: string
+      is_active:
+        type: boolean
+    required:
+    - name
+    - is_active
+  employee:
+    type: object
+    properties:
+      full_name:
+        type: string
+      email:
+        type: string
+      is_admin:
+        type: boolean
+      job_title:
+        type: string
+      profile_picture_url:
+        type: string
+    required:
+    - full_name
+    - email
+  location:
+    type: object
+    properties:
+      name:
+        type: string
+      code:
+        type: string
+    required:
+    - name
+    - code
+  question:
+    type: object
+    properties:
+      header:
+        type: string
+      text_content:
+        type: string
+      is_anonymous:
+        type: boolean
+      employee_id:
+        type: integer
+      assigned_to_employee_id:
+        type: integer
+      department_id:
+        type: integer
+      location_id:
+        type: integer
+    required:
+    - header
+    - text_content
+  tag:
+    type: object
+    properties:
+      name:
+        type: string
+    required:
+    - name
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      name: Authorization
+      in: header
+security:
+- bearerAuth: []
 paths:
   "/api/comments":
     post:
@@ -13,21 +99,27 @@ paths:
       responses:
         '200':
           description: comment created
+          content:
+            application/json:
+              example:
+                id: 1
+                text_content: string
+                is_answer: false
+                created_at: date
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                text_content:
-                  type: string
-                question_id:
-                  type: integer
-                is_answer:
-                  type: boolean
-              required:
-              - text_content
-              - question_id
+              "$ref": "#/definitions/comment"
         required: true
     get:
       summary: Get all Comments
@@ -47,6 +139,33 @@ paths:
       responses:
         '200':
           description: comment list received
+          content:
+            application/json:
+              example:
+                data:
+                - id: 1
+                  text_content: string
+                  is_answer: false
+                  created_at: date
+                  employee:
+                    id: 0
+                    full_name: string
+                    email: string
+                    is_admin: false
+                    job_title: string
+                    profile_picture_url: string
+                    department_id: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/comments/{id}":
     parameters:
     - name: id
@@ -62,21 +181,39 @@ paths:
       responses:
         '200':
           description: comment updated
+          content:
+            application/json:
+              example:
+                id: 1
+                text_content: string
+                is_answer: false
+                created_at: date
+                employee:
+                  id: 0
+                  full_name: string
+                  email: string
+                  is_admin: false
+                  job_title: string
+                  profile_picture_url: string
+                  department_id: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
+        '409':
+          description: No changes
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                text_content:
-                  type: string
-                question_id:
-                  type: integer
-                is_answer:
-                  type: boolean
-              required:
-              - text_content
-              - question_id
+              "$ref": "#/definitions/comment"
         required: true
     get:
       summary: Show a Comment by id
@@ -85,6 +222,32 @@ paths:
       responses:
         '200':
           description: comment updated
+          content:
+            application/json:
+              example:
+                id: 1
+                text_content: string
+                is_answer: false
+                created_at: date
+                employee:
+                  id: 0
+                  full_name: string
+                  email: string
+                  is_admin: false
+                  job_title: string
+                  profile_picture_url: string
+                  department_id: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
     delete:
       summary: Delete a Comment by id
       tags:
@@ -92,6 +255,10 @@ paths:
       responses:
         '200':
           description: comment deleted
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/departments":
     post:
       summary: Creates a Department
@@ -101,21 +268,35 @@ paths:
       responses:
         '200':
           description: department created
+          content:
+            application/json:
+              example:
+                id: 1
+                name: string
+                is_active: true
+                abbreviation: string
+                employees:
+                - id: 0
+                  full_name: string
+                  email: string
+                  is_admin: false
+                  job_title: string
+                  profile_picture_url: string
+                  department_id: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                abbreviation:
-                  type: string
-                is_active:
-                  type: boolean
-              required:
-              - name
-              - is_active
+              "$ref": "#/definitions/department"
         required: true
     get:
       summary: Get all Departments
@@ -135,6 +316,33 @@ paths:
       responses:
         '200':
           description: department list received
+          content:
+            application/json:
+              example:
+                data:
+                - id: 1
+                  name: string
+                  is_active: true
+                  abbreviation: string
+                  employees:
+                  - id: 0
+                    full_name: string
+                    email: string
+                    is_admin: false
+                    job_title: string
+                    profile_picture_url: string
+                    department_id: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '404':
+          description: Resource not Found
+        '401':
+          description: Authentication failed
   "/api/departments/{id}":
     parameters:
     - name: id
@@ -150,21 +358,39 @@ paths:
       responses:
         '200':
           description: department updated
+          content:
+            application/json:
+              example:
+                id: 1
+                name: string
+                is_active: true
+                abbreviation: string
+                employees:
+                - id: 0
+                  full_name: string
+                  email: string
+                  is_admin: false
+                  job_title: string
+                  profile_picture_url: string
+                  department_id: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
+        '409':
+          description: No changes
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                abbreviation:
-                  type: string
-                is_active:
-                  type: boolean
-              required:
-              - name
-              - is_active
+              "$ref": "#/definitions/department"
         required: true
     get:
       summary: Show a Department by id
@@ -173,6 +399,32 @@ paths:
       responses:
         '200':
           description: department updated
+          content:
+            application/json:
+              example:
+                id: 1
+                name: string
+                is_active: true
+                abbreviation: string
+                employees:
+                - id: 0
+                  full_name: string
+                  email: string
+                  is_admin: false
+                  job_title: string
+                  profile_picture_url: string
+                  department_id: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
     delete:
       summary: Delete a Department by id
       tags:
@@ -180,6 +432,10 @@ paths:
       responses:
         '200':
           description: department deleted
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/employees":
     post:
       summary: Creates a Employee
@@ -189,25 +445,30 @@ paths:
       responses:
         '200':
           description: employee created
+          content:
+            application/json:
+              example:
+                id: 1
+                full_name: string
+                email: string
+                is_admin: true
+                job_title: string
+                profile_picture_url: string
+                department_id: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                full_name:
-                  type: string
-                email:
-                  type: string
-                is_admin:
-                  type: boolean
-                job_title:
-                  type: string
-                profile_picture_url:
-                  type: string
-              required:
-              - full_name
-              - email
+              "$ref": "#/definitions/employee"
         required: true
     get:
       summary: Get all Employees
@@ -227,6 +488,28 @@ paths:
       responses:
         '200':
           description: employee list received
+          content:
+            application/json:
+              example:
+                data:
+                - id: 1
+                  full_name: string
+                  email: string
+                  is_admin: true
+                  job_title: string
+                  profile_picture_url: string
+                  department_id: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/employees/{id}":
     parameters:
     - name: id
@@ -242,25 +525,34 @@ paths:
       responses:
         '200':
           description: employee updated
+          content:
+            application/json:
+              example:
+                id: 1
+                full_name: string
+                email: string
+                is_admin: true
+                job_title: string
+                profile_picture_url: string
+                department_id: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
+        '409':
+          description: No changes
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                full_name:
-                  type: string
-                email:
-                  type: string
-                is_admin:
-                  type: boolean
-                job_title:
-                  type: string
-                profile_picture_url:
-                  type: string
-              required:
-              - full_name
-              - email
+              "$ref": "#/definitions/employee"
         required: true
     get:
       summary: Show an Employee by id
@@ -269,6 +561,27 @@ paths:
       responses:
         '200':
           description: employee updated
+          content:
+            application/json:
+              example:
+                id: 1
+                full_name: string
+                email: string
+                is_admin: true
+                job_title: string
+                profile_picture_url: string
+                department_id: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
     delete:
       summary: Delete an Employee by id
       tags:
@@ -276,6 +589,10 @@ paths:
       responses:
         '200':
           description: employee deleted
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/admins":
     get:
       summary: Admin List
@@ -294,7 +611,29 @@ paths:
       - Admins
       responses:
         '200':
-          description: employee list received
+          description: Admins list received
+          content:
+            application/json:
+              example:
+                data:
+                - id: 1
+                  full_name: string
+                  email: string
+                  is_admin: true
+                  job_title: string
+                  profile_picture_url: string
+                  department_id: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/locations":
     post:
       summary: Creates a Location
@@ -304,19 +643,26 @@ paths:
       responses:
         '200':
           description: location created
+          content:
+            application/json:
+              example:
+                id: 1
+                name: string
+                code: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                code:
-                  type: string
-              required:
-              - name
-              - code
+              "$ref": "#/definitions/location"
         required: true
     get:
       summary: Get all Locations
@@ -336,6 +682,24 @@ paths:
       responses:
         '200':
           description: location list received
+          content:
+            application/json:
+              example:
+                data:
+                - id: 1
+                  name: string
+                  code: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/locations/{id}":
     parameters:
     - name: id
@@ -351,19 +715,30 @@ paths:
       responses:
         '200':
           description: location updated
+          content:
+            application/json:
+              example:
+                id: 1
+                name: string
+                code: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
+        '409':
+          description: No changes
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                code:
-                  type: string
-              required:
-              - name
-              - code
+              "$ref": "#/definitions/location"
         required: true
     get:
       summary: Show a Location by id
@@ -372,6 +747,23 @@ paths:
       responses:
         '200':
           description: location updated
+          content:
+            application/json:
+              example:
+                id: 1
+                name: string
+                code: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
     delete:
       summary: Delete a Location by id
       tags:
@@ -379,6 +771,10 @@ paths:
       responses:
         '200':
           description: location deleted
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/questions":
     get:
       summary: list questions
@@ -397,6 +793,28 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                data:
+                - id: 0
+                  header: string
+                  created_at: date
+                  vote_count: 0
+                  comment_count: 0
+                  is_anonymous: true
+                  text_content: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
     post:
       summary: create question
       tags:
@@ -405,29 +823,30 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                id: 0
+                header: string
+                created_at: date
+                vote_count: 0
+                comment_count: 0
+                is_anonymous: true
+                text_content: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                header:
-                  type: string
-                text_content:
-                  type: string
-                is_anonymous:
-                  type: boolean
-                employee_id:
-                  type: integer
-                assigned_to_employee_id:
-                  type: integer
-                department_id:
-                  type: integer
-                location_id:
-                  type: integer
-              required:
-              - header
-              - text_content
+              "$ref": "#/definitions/question"
         required: true
   "/api/questions/{id}":
     parameters:
@@ -444,6 +863,29 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                id: 0
+                header: string
+                created_at: date
+                vote_count: 0
+                comment_count: 0
+                is_anonymous: true
+                text_content: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
+        '409':
+          description: No changes
     patch:
       summary: update question
       tags:
@@ -452,29 +894,34 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                id: 0
+                header: string
+                created_at: date
+                vote_count: 0
+                comment_count: 0
+                is_anonymous: true
+                text_content: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
+        '409':
+          description: No changes
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                header:
-                  type: string
-                text_content:
-                  type: string
-                is_anonymous:
-                  type: boolean
-                employee_id:
-                  type: integer
-                assigned_to_employee_id:
-                  type: integer
-                department_id:
-                  type: integer
-                location_id:
-                  type: integer
-              required:
-              - header
-              - text_content
+              "$ref": "#/definitions/question"
         required: true
     put:
       summary: update question
@@ -484,29 +931,34 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              example:
+                id: 0
+                header: string
+                created_at: date
+                vote_count: 0
+                comment_count: 0
+                is_anonymous: true
+                text_content: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
+        '409':
+          description: No changes
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                header:
-                  type: string
-                text_content:
-                  type: string
-                is_anonymous:
-                  type: boolean
-                employee_id:
-                  type: integer
-                assigned_to_employee_id:
-                  type: integer
-                department_id:
-                  type: integer
-                location_id:
-                  type: integer
-              required:
-              - header
-              - text_content
+              "$ref": "#/definitions/question"
         required: true
     delete:
       summary: delete question
@@ -515,6 +967,10 @@ paths:
       responses:
         '200':
           description: successful
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/tags":
     post:
       summary: Creates a Tag
@@ -524,16 +980,26 @@ paths:
       responses:
         '200':
           description: tag created
+          content:
+            application/json:
+              example:
+                id: 1
+                name: string
+                code: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-              required:
-              - name
+              "$ref": "#/definitions/tag"
         required: true
     get:
       summary: Get all Tags
@@ -553,6 +1019,24 @@ paths:
       responses:
         '200':
           description: tag list received
+          content:
+            application/json:
+              example:
+                data:
+                - id: 1
+                  name: string
+                  code: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/api/tags/{id}":
     parameters:
     - name: id
@@ -568,16 +1052,23 @@ paths:
       responses:
         '200':
           description: tag updated
+          content:
+            application/json:
+              example:
+                id: 1
+                name: string
+                code: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
+        '409':
+          description: No changes
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-              required:
-              - name
+              "$ref": "#/definitions/tag"
         required: true
     get:
       summary: Show a Tag by id
@@ -586,6 +1077,23 @@ paths:
       responses:
         '200':
           description: tag updated
+          content:
+            application/json:
+              example:
+                id: 1
+                name: string
+                code: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
     delete:
       summary: Delete a Tag by id
       tags:
@@ -593,6 +1101,10 @@ paths:
       responses:
         '200':
           description: tag deleted
+        '401':
+          description: Authentication failed
+        '404':
+          description: Resource not Found
   "/healthcheck":
     get:
       summary: View status

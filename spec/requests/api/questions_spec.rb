@@ -8,6 +8,17 @@ RSpec.describe 'api/questions', type: :request do
       parameter name: 'items', in: :query, type: :integer
 
       response(200, 'successful') do
+        examples 'application/json' => {
+          data: [
+            id: 0,
+            header: "string",
+            created_at: "date",
+            vote_count: 0,
+            comment_count: 0,
+            is_anonymous: true,
+            text_content: "string"
+          ]
+        }
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -17,26 +28,38 @@ RSpec.describe 'api/questions', type: :request do
         end
         run_test!
       end
+      response '400', 'Bad Request' do
+        examples 'application/json' => {
+          "error": 0,
+          "message": "string"
+        }
+        run_test!
+      end
+      response '401', 'Authentication failed' do
+        run_test!
+      end
+      response '404', 'Resource not Found' do
+        run_test!
+      end
     end
 
     post('create question') do
       tags 'Questions'
       consumes 'application/json'
-      parameter name: :question, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          header: { type: :string },
-          text_content: { type: :string },
-          is_anonymous: { type: :boolean },
-          employee_id: { type: :integer },
-          assigned_to_employee_id: { type: :integer },
-          department_id: { type: :integer },
-          location_id: { type: :integer }
-        },
-        required: %w[header text_content]
+      parameter name: :comment, in: :body, required: true, schema: {
+        '$ref' => '#/definitions/question'
       }
 
       response(200, 'successful') do
+        examples 'application/json' => {
+          id: 0,
+          header: "string",
+          created_at: "date",
+          vote_count: 0,
+          comment_count: 0,
+          is_anonymous: true,
+          text_content: "string"
+        }
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -44,6 +67,16 @@ RSpec.describe 'api/questions', type: :request do
             }
           }
         end
+        run_test!
+      end
+      response '400', 'Bad Request' do
+        examples 'application/json' => {
+          "error": 0,
+          "message": "string"
+        }
+        run_test!
+      end
+      response '401', 'Authentication failed' do
         run_test!
       end
     end
@@ -55,6 +88,15 @@ RSpec.describe 'api/questions', type: :request do
     get('show question') do
       tags 'Questions'
       response(200, 'successful') do
+        examples 'application/json' => {
+          id: 0,
+          header: "string",
+          created_at: "date",
+          vote_count: 0,
+          comment_count: 0,
+          is_anonymous: true,
+          text_content: "string"
+        }
         let(:id) { '123' }
 
         after do |example|
@@ -64,6 +106,22 @@ RSpec.describe 'api/questions', type: :request do
             }
           }
         end
+        run_test!
+      end
+      response '400', 'Bad Request' do
+        examples 'application/json' => {
+          "error": 0,
+          "message": "string"
+        }
+        run_test!
+      end
+      response '401', 'Authentication failed' do
+        run_test!
+      end
+      response '404', 'Resource not Found' do
+        run_test!
+      end
+      response '409', 'No changes' do
         run_test!
       end
     end
@@ -71,21 +129,20 @@ RSpec.describe 'api/questions', type: :request do
     patch('update question') do
       tags 'Questions'
       consumes 'application/json'
-      parameter name: :question, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          header: { type: :string },
-          text_content: { type: :string },
-          is_anonymous: { type: :boolean },
-          employee_id: { type: :integer },
-          assigned_to_employee_id: { type: :integer },
-          department_id: { type: :integer },
-          location_id: { type: :integer }
-        },
-        required: %w[header text_content]
+      parameter name: :comment, in: :body, required: true, schema: {
+        '$ref' => '#/definitions/question'
       }
 
       response(200, 'successful') do
+        examples 'application/json' => {
+          id: 0,
+          header: "string",
+          created_at: "date",
+          vote_count: 0,
+          comment_count: 0,
+          is_anonymous: true,
+          text_content: "string"
+        }
         let(:id) { '123' }
 
         after do |example|
@@ -97,26 +154,41 @@ RSpec.describe 'api/questions', type: :request do
         end
         run_test!
       end
+      response '400', 'Bad Request' do
+        examples 'application/json' => {
+          "error": 0,
+          "message": "string"
+        }
+        run_test!
+      end
+      response '401', 'Authentication failed' do
+        run_test!
+      end
+      response '404', 'Resource not Found' do
+        run_test!
+      end
+      response '409', 'No changes' do
+        run_test!
+      end
     end
 
     put('update question') do
       tags 'Questions'
       consumes 'application/json'
-      parameter name: :question, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          header: { type: :string },
-          text_content: { type: :string },
-          is_anonymous: { type: :boolean },
-          employee_id: { type: :integer },
-          assigned_to_employee_id: { type: :integer },
-          department_id: { type: :integer },
-          location_id: { type: :integer }
-        },
-        required: %w[header text_content]
+      parameter name: :comment, in: :body, required: true, schema: {
+        '$ref' => '#/definitions/question'
       }
-      
+
       response(200, 'successful') do
+        examples 'application/json' => {
+          id: 0,
+          header: "string",
+          created_at: "date",
+          vote_count: 0,
+          comment_count: 0,
+          is_anonymous: true,
+          text_content: "string"
+        }
         let(:id) { '123' }
 
         after do |example|
@@ -126,6 +198,22 @@ RSpec.describe 'api/questions', type: :request do
             }
           }
         end
+        run_test!
+      end
+      response '400', 'Bad Request' do
+        examples 'application/json' => {
+          "error": 0,
+          "message": "string"
+        }
+        run_test!
+      end
+      response '401', 'Authentication failed' do
+        run_test!
+      end
+      response '404', 'Resource not Found' do
+        run_test!
+      end
+      response '409', 'No changes' do
         run_test!
       end
     end
@@ -142,6 +230,12 @@ RSpec.describe 'api/questions', type: :request do
             }
           }
         end
+        run_test!
+      end
+      response '401', 'Authentication failed' do
+        run_test!
+      end
+      response '404', 'Resource not Found' do
         run_test!
       end
     end

@@ -4,16 +4,18 @@ module RestApiController
   included do
     before_action :resource, except: %i[index create admins]
     before_action :require_resource_params, only: %i[create update]
+    before_action :authorize_request
 
     def index
       @resources = (respond_to? :index_callback) ? index_callback : resource_class.all
       @serializer ||= "#{resource_class}Serializer".constantize
-      if params[:items].nil?
+      if params[:items].nil? && params[:page].nil?
         render json: {
           data: serialize(@resources, @serializer)[resource_class.to_s.pluralize.downcase.to_sym]
         }, status: :ok
       else
         params[:items] ||= Pagy::DEFAULT[:items]
+        params[:page] ||= Pagy::DEFAULT[:page]
         @pagy, @resources = pagy(@resources, items: params[:items])
         render json: {
           data: serialize(@resources, @serializer)[resource_class.to_s.pluralize.downcase.to_sym],

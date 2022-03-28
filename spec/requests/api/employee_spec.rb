@@ -8,19 +8,29 @@ describe 'Employee Endpoint' do
         tags 'Employees'
         consumes 'application/json'
         parameter name: :employee, in: :body, required: true, schema: {
-          type: :object,
-          properties: {
-            full_name: { type: :string },
-            email: { type: :string },
-            is_admin: { type: :boolean },
-            job_title: { type: :string },
-            profile_picture_url: { type: :string }
-          },
-          required: [ 'full_name', 'email' ]
+          '$ref' => '#/definitions/employee'
         }
 
         response '200', 'employee created' do
-          let(:employee) { { full_name: 'foo', email: 'bar' } }
+          examples 'application/json' => {
+            id: 1,
+            full_name: "string",
+            email: "string",
+            is_admin: true,
+            job_title: "string",
+            profile_picture_url: "string",
+            department_id: 1
+          }
+          run_test!
+        end
+        response '400', 'Bad Request' do
+          examples 'application/json' => {
+            "error": 0,
+            "message": "string"
+          }
+          run_test!
+        end
+        response '401', 'Authentication failed' do
           run_test!
         end
       end
@@ -32,6 +42,30 @@ describe 'Employee Endpoint' do
         produces 'application/json'
 
         response '200', 'employee list received' do
+          examples 'application/json' => {
+            data: [
+              id: 1,
+              full_name: "string",
+              email: "string",
+              is_admin: true,
+              job_title: "string",
+              profile_picture_url: "string",
+              department_id: 1
+            ]
+          }
+          run_test!
+        end
+        response '400', 'Bad Request' do
+          examples 'application/json' => {
+            "error": 0,
+            "message": "string"
+          }
+          run_test!
+        end
+        response '401', 'Authentication failed' do
+          run_test!
+        end
+        response '404', 'Resource not Found' do
           run_test!
         end
       end
@@ -45,18 +79,35 @@ describe 'Employee Endpoint' do
          tags 'Employees'
          consumes 'application/json'
          parameter name: :employee, in: :body, required: true, schema: {
-           type: :object,
-           properties: {
-             full_name: { type: :string },
-             email: { type: :string },
-             is_admin: { type: :boolean },
-             job_title: { type: :string },
-             profile_picture_url: { type: :string }
-           },
-           required: [ 'full_name', 'email' ]
+           '$ref' => '#/definitions/employee'
          }
          response '200', 'employee updated' do
+           examples 'application/json' => {
+             id: 1,
+             full_name: "string",
+             email: "string",
+             is_admin: true,
+             job_title: "string",
+             profile_picture_url: "string",
+             department_id: 1
+           }
           run_test!
+         end
+         response '400', 'Bad Request' do
+           examples 'application/json' => {
+             "error": 0,
+             "message": "string"
+           }
+           run_test!
+         end
+         response '401', 'Authentication failed' do
+           run_test!
+         end
+         response '404', 'Resource not Found' do
+           run_test!
+         end
+         response '409', 'No changes' do
+           run_test!
          end
        end
 
@@ -64,7 +115,29 @@ describe 'Employee Endpoint' do
          tags 'Employees'
          produces 'application/json'
          response '200', 'employee updated' do
+           examples 'application/json' => {
+             id: 1,
+             full_name: "string",
+             email: "string",
+             is_admin: true,
+             job_title: "string",
+             profile_picture_url: "string",
+             department_id: 1
+           }
           run_test!
+         end
+         response '400', 'Bad Request' do
+           examples 'application/json' => {
+             "error": 0,
+             "message": "string"
+           }
+           run_test!
+         end
+         response '401', 'Authentication failed' do
+           run_test!
+         end
+         response '404', 'Resource not Found' do
+           run_test!
          end
        end
 
@@ -73,6 +146,12 @@ describe 'Employee Endpoint' do
          produces 'application/json'
          response '200', 'employee deleted' do
           run_test!
+         end
+         response '401', 'Authentication failed' do
+           run_test!
+         end
+         response '404', 'Resource not Found' do
+           run_test!
          end
        end
     end
@@ -84,7 +163,31 @@ describe 'Employee Endpoint' do
         tags 'Admins'
         produces 'application/json'
 
-        response '200', 'employee list received' do
+        response '200', 'Admins list received' do
+          examples 'application/json' => {
+            data: [
+              id: 1,
+              full_name: "string",
+              email: "string",
+              is_admin: true,
+              job_title: "string",
+              profile_picture_url: "string",
+              department_id: 1
+            ]
+          }
+          run_test!
+        end
+        response '400', 'Bad Request' do
+          examples 'application/json' => {
+            "error": 0,
+            "message": "string"
+          }
+          run_test!
+        end
+        response '401', 'Authentication failed' do
+          run_test!
+        end
+        response '404', 'Resource not Found' do
           run_test!
         end
       end
