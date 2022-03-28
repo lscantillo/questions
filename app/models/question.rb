@@ -30,8 +30,18 @@ class Question < ApplicationRecord
     Question.find(question_ids).split(',')
   end
 
-  def self.insteresting
+  def self.interesting
     question_ids = Comment.select(:question_id).group(:question_id).order(Arel.sql('COUNT(question_id) DESC')).pluck(:question_id)
     Question.find(question_ids).split(',')
+  end
+
+  def self.unanswered
+    question_ids = Comment.select(:question_id).where(is_answer: false).pluck(:question_id)
+    Question.find(question_ids).split(',')[0]
+  end
+  
+  def self.answered
+    question_ids = Comment.select(:question_id).where(is_answer: true).pluck(:question_id)
+    Question.find(question_ids).split(',')[0]
   end
 end
