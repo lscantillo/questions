@@ -16,6 +16,7 @@ class ApplicationController < ActionController::API
         profile_picture_url: @decoded['picture']
       }
       @current_user = Employee.find_or_create_by(employee_params)
+      @sub = @decoded['sub']
     rescue Api::EmptyHeader => e
       render json: { code: e.code, error: e.message }, status: :unauthorized
     rescue ActiveRecord::RecordNotFound => e
