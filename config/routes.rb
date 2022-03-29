@@ -21,5 +21,7 @@ Rails.application.routes.draw do
     post 'similar_questions' => 'validations#similar_questions'
     get 'hottest' => 'validations#hottest'
     get 'interesting' => 'validations#interesting'
+    post '/upvote', to:'votes#upvote'
+    delete '/downvote', to: 'votes#downvote'
   end
 end
