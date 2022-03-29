@@ -21,5 +21,7 @@ Rails.application.routes.draw do
     post 'similar_questions' => 'validations#similar_questions'
     get 'hottest' => 'validations#hottest'
     get 'interesting' => 'validations#interesting'
+    get 'unanswered' => 'validations#unanswered'
+    get 'answered' => 'validations#answered'
   end
 end
