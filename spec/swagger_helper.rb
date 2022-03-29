@@ -77,6 +77,13 @@ RSpec.configure do |config|
             name: { type: :string }
           },
           required: [ 'name' ]
+        },
+        vote: {
+          type: 'object',
+          properties: {
+            is_up_vote: { type: :boolean },
+            question_id: { type: :integer }
+          }
         }
       },
       components: {
