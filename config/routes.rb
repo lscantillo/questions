@@ -23,5 +23,7 @@ Rails.application.routes.draw do
     get 'interesting' => 'validations#interesting'
     post '/upvote', to:'votes#upvote'
     delete '/downvote', to: 'votes#downvote'
+    get 'unanswered' => 'validations#unanswered'
+    get 'answered' => 'validations#answered'
   end
 end

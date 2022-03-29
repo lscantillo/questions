@@ -41,10 +41,23 @@ class Api::ValidationsController < ApplicationController
     end
   end
 
-
-  private
-  def search_params
-     @params = params.require(:search).permit(:content)
+  def unanswered
+    @questions = Question.unanswered
+    @pagy, @records = pagy_array(@questions)
+    render json: { data: @records,
+                   pagy: pagy_metadata(@pagy) }
   end
 
+  def answered
+    @questions = Question.answered
+    @pagy, @records = pagy_array(@questions)
+    render json: { data: @records,
+                   pagy: pagy_metadata(@pagy) }
+  end
+
+  private
+
+  def search_params
+    @params = params.require(:search).permit(:content)
+  end
 end
