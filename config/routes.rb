@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :comments
     post 'similar_questions' => 'validations#similar_questions'
     get 'hottest' => 'validations#hottest'
-    get 'insteresting' => 'validations#interesting'
+    get 'interesting' => 'validations#interesting'
     get 'unanswered' => 'validations#unanswered'
     get 'answered' => 'validations#answered'
   end
