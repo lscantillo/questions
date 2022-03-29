@@ -1,7 +1,7 @@
 class Api::VotesController < ApplicationController
   include RestApiController
 
-  def upvote
+  def add_vote
     vote_params = {
       user_token_id: @sub,
       question_id: params['question_id'],
@@ -15,7 +15,7 @@ class Api::VotesController < ApplicationController
     end
   end
 
-  def downvote
+  def remove_vote
     @vote = Vote.find_by(question_id: params['question_id'],user_token_id: @sub )
     @vote.destroy
     if @vote.destroyed?
