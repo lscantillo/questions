@@ -2,7 +2,7 @@ module RestApiController
   extend ActiveSupport::Concern
   include Pagy::Backend
   included do
-    before_action :resource, except: %i[index create admins]
+    before_action :resource, except: %i[index create admins add_vote remove_vote]
     before_action :require_resource_params, only: %i[create update]
     before_action :authorize_request
 

@@ -79,6 +79,13 @@ definitions:
         type: string
     required:
     - name
+  vote:
+    type: object
+    properties:
+      is_up_vote:
+        type: boolean
+      question_id:
+        type: integer
 components:
   securitySchemes:
     bearerAuth:
@@ -1112,6 +1119,66 @@ paths:
           description: Authentication failed
         '404':
           description: Resource not Found
+  "/api/votes":
+    post:
+      summary: Creates a Vote
+      tags:
+      - Votes
+      parameters: []
+      responses:
+        '200':
+          description: vote created
+          content:
+            application/json:
+              example:
+                is_up_vote: true
+                question_id: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/definitions/vote"
+        required: true
+    delete:
+      summary: Deletes a Vote
+      tags:
+      - Votes
+      parameters: []
+      responses:
+        '200':
+          description: vote created
+          content:
+            application/json:
+              example:
+                is_up_vote: true
+                question_id: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                error: 0
+                message: string
+        '401':
+          description: Authentication failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question_id:
+                  type: integer
+        required: true
   "/healthcheck":
     get:
       summary: View status
