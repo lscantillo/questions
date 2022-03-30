@@ -797,6 +797,13 @@ paths:
         in: query
         schema:
           type: integer
+      - name: sort
+        in: query
+        enum:
+        - hottest
+        - interesting
+        - unanswered
+        - answered
       responses:
         '200':
           description: successful

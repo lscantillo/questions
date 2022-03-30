@@ -9,7 +9,8 @@ class Api::QuestionsController < ApplicationController
 
   def index_callback
     @serializer = MinimalQuestionSerializer unless params[:layout].nil? || params[:layout] != 'minimal'
-    @resources = Question.all.order('created_at DESC')
+    @sort = params[:sort]
+    @resources = @sort.nil? ? Question.all.order('created_at DESC') : Question.public_send(@sort)
   end
 
   def show_callback

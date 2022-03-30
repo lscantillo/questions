@@ -6,6 +6,7 @@ RSpec.describe 'api/questions', type: :request do
       tags 'Questions'
       parameter name: 'layout', in: :query, type: :string, default: 'classic'
       parameter name: 'items', in: :query, type: :integer
+      parameter name: 'sort', in: :query, enum: %w[hottest interesting unanswered answered]
 
       response(200, 'successful') do
         examples 'application/json' => {
