@@ -16,7 +16,7 @@ module RestApiController
       else
         params[:items] ||= Pagy::DEFAULT[:items]
         params[:page] ||= Pagy::DEFAULT[:page]
-        @pagy, @resources = pagy(@resources, items: params[:items])
+        @pagy, @resources = pagy_array(@resources, items: params[:items])
         render json: {
           data: serialize(@resources, @serializer)[resource_class.to_s.pluralize.downcase.to_sym],
           pagy: pagy_metadata(@pagy)
