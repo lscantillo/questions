@@ -10,7 +10,14 @@ class Api::QuestionsController < ApplicationController
   def index_callback
     @serializer = MinimalQuestionSerializer unless params[:layout].nil? || params[:layout] != 'minimal'
     @sort = params[:sort]
+    @filter = []
+    @filter << [:department_id, params[:department_id]] unless params[:department_id].nil?
+    @filter << [:location_id, params[:location_id]] unless params[:location_id].nil?
     @resources = @sort.nil? ? Question.all.order('created_at DESC') : Question.public_send(@sort)
+    @filter.each do |filter|
+      @resources = @resources.where(filter[0] => filter[1])
+    end
+    return @resources
   end
 
   def show_callback
