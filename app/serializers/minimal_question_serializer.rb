@@ -2,6 +2,11 @@ class MinimalQuestionSerializer < ActiveModel::Serializer
   attributes :id, :header, :created_at, :vote_count, :comment_count, :is_anonymous
   has_one :employee, unless: -> { object.is_anonymous }
   has_many :tags, unless: -> { object.tags.count.zero? }
+  has_one :voted_by_current_user
+
+  def voted_by_current_user
+    object.votes.find_by_user_token_id(scope.inspect.gsub!('"', '')).nil? ? 0 : 1
+  end
 
   def vote_count
     object.votes.count

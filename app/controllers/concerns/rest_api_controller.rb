@@ -64,15 +64,22 @@ module RestApiController
     private
 
     def serialize(resource, serializer)
+      options = { }
+      if controller_name == "questions"
+        options[:scope] = current_user
+        options[:scope_name] = :current_user
+      end
       if resource.is_a? Enumerable
+        options[:each_serializer] = serializer
         ActiveModelSerializers::SerializableResource.new(
           resource,
-          each_serializer: serializer
+          options
         ).as_json
       else
+        options[:serializer] = serializer
         ActiveModelSerializers::SerializableResource.new(
           resource,
-          serializer: serializer
+          options
         ).as_json
       end
     end

@@ -31,4 +31,8 @@ class Api::QuestionsController < ApplicationController
   def update_callback
     @resource.tags = Tag.Tagization(params[:question][:tags]) unless params[:question][:tags].nil?
   end
+
+  def current_user
+    @sub
+  end
 end
