@@ -27,6 +27,4 @@ class ApplicationController < ActionController::API
       render json: { error: "Could not decode authetication token", status_code: 401}, status: :unauthorized
     end
   end
-
-
 end

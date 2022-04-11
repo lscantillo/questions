@@ -26,6 +26,7 @@ class Api::QuestionsController < ApplicationController
 
   def create_callback
     @resource.tags = Tag.Tagization(params[:question][:tags]) unless params[:question][:tags].nil?
+    @resource.employee = @current_user unless params[:is_anonymous].nill? || params[:is_anonymous]
   end
 
   def update_callback
